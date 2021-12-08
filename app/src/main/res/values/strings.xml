@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AynApp</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="login_by_google">Login By Google</string>
+    <string name="name">Name</string>
+    <string name="registration">Registration</string>
+    <string name="register">Register</string>
+    <string name="return_to_login">Return to login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
+    <string name="profile">Profile</string>
+</resources>
