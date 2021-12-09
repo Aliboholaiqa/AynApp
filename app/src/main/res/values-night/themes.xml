@@ -22,7 +22,7 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">#204051</item>
+        <item name="colorPrimary">#204051</item>
+        <item name="colorOnPrimary">#F79B78</item>
     </style>
 </resources>

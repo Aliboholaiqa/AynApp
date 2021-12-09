@@ -1,64 +1,46 @@
-package com.twq.aynapp.view.profile
+package com.twq.aynapp.model
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
+
+import com.twq.aynapp.R
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.twq.aynapp.R
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
-@SuppressLint("ParcelCreator")
-internal class MainAdapter(
-    private val context: Context,
-    private val numbersInWords: Array<String>,
-    private val numberImage: IntArray
-) :
-    BaseAdapter(), Parcelable {
-    private var layoutInflater: LayoutInflater? = null
-    private lateinit var imageView: ImageView
-    private lateinit var textView: TextView
 
-    override fun getCount(): Int {
-        return numbersInWords.size
-    }
-    override fun getItem(position: Int): Any? {
-        return null
-    }
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup
-    ): View {
-        var convertView = convertView
-        if (layoutInflater == null) {
-            layoutInflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        }
-        if (convertView == null) {
-            convertView = layoutInflater!!.inflate(R.layout.list_home_posts, null)
-        }
-        imageView = convertView!!.findViewById(R.id.imageViewPost)
-        textView = convertView.findViewById(R.id.textViewProjectTitle)
-        imageView.setImageResource(numberImage[position])
-        textView.text = numbersInWords[position]
-        return convertView
+class ProfileAdapter(var data:MutableList<Movie>): RecyclerView.Adapter<ProfileMovieHolder> () {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileMovieHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_profile_posts,parent,false)
+
+        return ProfileMovieHolder(v)
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeStringArray(numbersInWords)
-        parcel.writeIntArray(numberImage)
+    override fun onBindViewHolder(holder: ProfileMovieHolder, position: Int) {
+        holder.textViewProfileTitle.text = data[position].title
+        Picasso.get().load(data[position].posterURL).into(holder.imageViewProfilePoster)
+
     }
 
-    override fun describeContents(): Int {
-        return 0
+    fun deleteItem(position: Int){
+        data.removeAt(position)
+        notifyItemRemoved(position)
     }
+
+
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+
+}
+class ProfileMovieHolder(v: View) : RecyclerView.ViewHolder(v){
+    var imageViewProfilePoster = v.findViewById<ImageView>(R.id.imageViewProfilePost)
+    var textViewProfileTitle = v.findViewById<TextView>(R.id.textViewProfileProjectTitle)
 
 }

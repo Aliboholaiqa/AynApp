@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Movie
 import com.twq.aynapp.model.MovieAdapter
+import com.twq.aynapp.model.ProfileAdapter
 
 
 class ProfileFragment : Fragment() {
@@ -30,7 +31,7 @@ class ProfileFragment : Fragment() {
 
         var movieList = mutableListOf<Movie>(
             Movie(
-                "The Shawshank Redemption",
+                "The Shawshank ",
                 "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
                 1994,
                 "https://m.media-amazon.com/images/M/MV5BMzJkNjNiOWUtYzNmOC00MGFjLWE5N2EtMjdkYjEwMzQ4NzBhXkEyXkFqcGdeQXVyMTAyOTE2ODg0._V1_UX100_CR0,0,100,100_AL_.jpg"
@@ -104,7 +105,7 @@ class ProfileFragment : Fragment() {
         )
         val pRecyclerView = v.findViewById<RecyclerView>(R.id.pRecyclerView)
         pRecyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        pRecyclerView.adapter = MovieAdapter(movieList)
+        pRecyclerView.adapter = ProfileAdapter(movieList)
 
         return v
 
