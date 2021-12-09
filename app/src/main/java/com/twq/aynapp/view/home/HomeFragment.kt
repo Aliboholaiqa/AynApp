@@ -94,11 +94,10 @@ class HomeFragment : Fragment() {
                 "https://m.media-amazon.com/images/M/MV5BMjA2ODk2ODAwMV5BMl5BanBnXkFtZTcwNzYzMTk2Mw@@._V1_UX100_CR0,0,100,100_AL_.jpg"
             ),
         )
-        var v = inflater.inflate(R.layout.fragment_home, container, false)
-        var hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
+        val v = inflater.inflate(R.layout.fragment_home, container, false)
+        val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(v.context)
         hRecyclerView.adapter = MovieAdapter(movieList)
-//        mRecyclerView.adapter = PostAdapter()
         return v
 
 

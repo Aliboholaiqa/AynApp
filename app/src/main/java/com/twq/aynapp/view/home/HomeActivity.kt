@@ -8,7 +8,6 @@ import com.twq.aynapp.view.profile.ProfileFragment
 import com.twq.aynapp.view.saved.SavedFragment
 
 class HomeActivity : AppCompatActivity() {
-   // lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Binding
