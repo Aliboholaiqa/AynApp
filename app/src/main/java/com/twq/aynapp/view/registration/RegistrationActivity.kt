@@ -41,10 +41,11 @@ class RegistrationActivity : AppCompatActivity() {
                             "email" to binding.editTextEmailRegister,
                             "password" to binding.editTextPasswordRegister
                         )
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
                         db.collection("user").document(auth.currentUser?.uid.toString())
                             .set(user)
+
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
                     }
                     else{
                         Toast.makeText(this, "Unable to sign-in", Toast.LENGTH_SHORT).show()

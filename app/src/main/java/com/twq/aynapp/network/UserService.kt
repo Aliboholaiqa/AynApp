@@ -12,8 +12,6 @@ interface UserService {
     fun getUserByUsernameAndPassword(@Query("username")username:String,
                                      @Query("password")password:String): Call<List<User>>
 
-    @GET("users")
-    fun getAllUsers(): Call<List<User>>
 
     @POST("users")
     fun addUser(@Body user: User): Call<User>
