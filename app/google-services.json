@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "269772787567",
+    "project_id": "aynapp-adf00",
+    "storage_bucket": "aynapp-adf00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269772787567:android:0dd3dbd53a0c47fa4c629a",
+        "android_client_info": {
+          "package_name": "com.twq.aynapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269772787567-vpiniasukpd45jpg2u4v7s5401qjto6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD06WjrJFWVdU5o1RSgHilVZyIr7fLF6bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269772787567-vpiniasukpd45jpg2u4v7s5401qjto6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
