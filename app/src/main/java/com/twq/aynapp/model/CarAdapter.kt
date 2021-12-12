@@ -1,5 +1,6 @@
 package com.twq.aynapp.model
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
+import com.twq.aynapp.view.home.HomeDetailsActivity
 
 class CarAdapter (var data:MutableList<Car>):RecyclerView.Adapter<CarHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarHolder {
@@ -19,6 +21,11 @@ class CarAdapter (var data:MutableList<Car>):RecyclerView.Adapter<CarHolder>(){
         holder.carName.text = data[position].carName
         Picasso.get().load(data[position].carImage).into(holder.carImage)
 
+        holder.itemView.setOnClickListener {
+            var intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
+            intent.putExtra("project",data[position])
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

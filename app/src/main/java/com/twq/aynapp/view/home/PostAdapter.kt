@@ -2,6 +2,7 @@ package com.twq.aynapp.view.home
 
 
 import Post
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
+import com.twq.aynapp.model.Car
 
 
 class PostAdapter (var data: List<Post>): RecyclerView.Adapter<UserHolder>(){
@@ -20,12 +22,12 @@ class PostAdapter (var data: List<Post>): RecyclerView.Adapter<UserHolder>(){
 
     override fun onBindViewHolder(holder: UserHolder, position: Int) {
         holder.textViewName.text = data[position].name
-       // holder.textViewProjectTitle.text = data[position]
+        holder.textViewProjectTitle.text = data[position].Title
         Picasso.get().load(data[position].image).placeholder(R.drawable.ic_launcher_background).into(holder.image)
 
 //        holder.itemView.setOnClickListener {
-//            var intent = Intent(holder.itemView.context, ProfileActivity::class.java)
-//            intent.putExtra("user",data[position])
+//            var intent = Intent(holder.itemView.context, HomeProjectDetailsActivity::class.java)
+//            intent.putExtra("project",data[position])
 //            holder.itemView.context.startActivity(intent)
 //        }
     }
