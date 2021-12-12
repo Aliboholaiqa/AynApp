@@ -13,11 +13,12 @@ import retrofit2.Response
 class ProjectRepository {
     var projectService = Api.getInstance().create(ProjectService::class.java)
 
+    //Getting all the projects of all the user
     fun projects(): MutableLiveData<List<Project>> {
         var mLiveData = MutableLiveData<List<Project>>()
         projectService.getAllProjects().enqueue(object : Callback<List<Project>> {
             override fun onResponse(call: Call<List<Project>>, response: Response<List<Project>>) {
-                var list = response.body()
+                val list = response.body()
                 mLiveData.postValue(list!!)
             }
 
@@ -29,5 +30,7 @@ class ProjectRepository {
         })
         return mLiveData
     }
+
+    //Getting a single user project for profile page
 
 }

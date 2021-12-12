@@ -13,7 +13,6 @@ class HomeActivity : AppCompatActivity() {
         //Binding
         val binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,HomeFragment()).commit()
 
         //Navigation view listener
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {  item ->
@@ -33,8 +32,7 @@ class HomeActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,ProfileFragment()).commit()
                     true
                 }
-                else -> {supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,HomeFragment()).commit()
-                    true}
+                else -> {false}
             }
         }
     }
