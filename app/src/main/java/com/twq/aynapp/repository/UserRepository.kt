@@ -12,8 +12,10 @@ import retrofit2.Response
 import retrofit2.create
 
 class UserRepository{
+
     var userService = Api.getInstance().create(UserService::class.java)
 
+    // Login
     fun login(username:String,password:String):LiveData<User>{
         var mLiveData = MutableLiveData<User>()
         userService.getUserByUsernameAndPassword(username,password).enqueue(object :
@@ -30,6 +32,27 @@ class UserRepository{
                 Log.d("Doc Snippet", "Failed to get login")
             }
 
+        })
+        return mLiveData
+    }
+
+    // Registration
+    fun register (username: String,email: String, password: String):LiveData<User>{
+        val user = User("","",email,"","","",password,username)
+        val mLiveData = MutableLiveData<User>()
+        userService.addUser(user).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    var newUser = response.body()
+                    mLiveData.postValue(newUser!!)
+                    Log.d("Doc Snippet", "New user added")
+                }else{
+                    mLiveData.postValue(User("","","","", "","","",""))
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("Doc Snippet", "Failed to add a user")
+            }
         })
         return mLiveData
     }

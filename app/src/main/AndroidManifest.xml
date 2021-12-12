@@ -12,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AynApp">
         <activity
-            android:name=".view.home.HomeDetailsActivity"
-            android:exported="false" />
+            android:name=".view.splash.SplashActivity"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
-            android:name=".view.home.HomeProjectDetailsActivity"
+            android:name=".view.home.HomeDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".view.profile.ProfileEditInfoActivity"
@@ -29,11 +35,7 @@
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.MainActivity"
