@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
-import com.twq.aynapp.view.home.HomeDetailsActivity
 
 class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileHolder {
@@ -29,7 +28,6 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
     }
 
 }
-
 
 class ProfileHolder(v: View): RecyclerView.ViewHolder(v){
     var vtitle = v.findViewById<TextView>(R.id.textViewProfileProjectTitle)

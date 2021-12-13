@@ -21,7 +21,7 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
     override fun onBindViewHolder(holder: HomeHolder, position: Int) {
         holder.vtitle.text = data[position].projectTitle
         holder.vusername.text = data[position].createdAt
-        Picasso.get().load(data[position].image).placeholder(R.drawable.ic_launcher_background).into(holder.vimage)
+        Picasso.get().load(data[position].image).into(holder.vimage)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
@@ -36,7 +36,6 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
     }
 
 }
-
 
 class HomeHolder(v: View): RecyclerView.ViewHolder(v){
     var vtitle = v.findViewById<TextView>(R.id.textViewProjectTitle)

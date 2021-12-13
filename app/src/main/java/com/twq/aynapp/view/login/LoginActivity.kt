@@ -23,9 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val currentUser = auth.currentUser
-
-
+        //Login using firebase
         binding.buttonLogin.setOnClickListener {
                 auth.signInWithEmailAndPassword(binding.editTextEmailLogin.text.toString()
                     ,binding.editTextPasswordLogin.text.toString())
@@ -46,10 +44,12 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
 
+        //Go to registration page
         binding.buttonRegistration.setOnClickListener {
             val intent = Intent(this,RegistrationActivity::class.java)
             startActivity(intent)
         }
+        //Login by google
         binding.buttonByGoogle.setOnClickListener {
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)

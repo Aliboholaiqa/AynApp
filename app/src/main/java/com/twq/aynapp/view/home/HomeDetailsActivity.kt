@@ -15,7 +15,7 @@ class HomeDetailsActivity : AppCompatActivity() {
         val project = intent.getSerializableExtra("project") as Project
         binding.textViewDetailsProjectTitle.text = project.projectTitle
         binding.textViewDescription.text = project.description
-        Picasso.get().load(project.image).placeholder(R.drawable.ic_launcher_background).into(binding.imageViewDetails)
+        Picasso.get().load(project.image).into(binding.imageViewDetails)
         setContentView(binding.root)
 
     }

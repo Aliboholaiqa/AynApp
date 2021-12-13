@@ -20,8 +20,7 @@ import com.twq.aynapp.view.home.HomeFragment
 import com.twq.aynapp.view.login.LoginActivity
 
 class RegistrationActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth;
-    private lateinit var db: Firebase
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -29,7 +28,6 @@ class RegistrationActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         val db = Firebase.firestore
-
         binding.buttonRegistrationRegister.setOnClickListener {
             auth.createUserWithEmailAndPassword(
             binding.editTextEmailRegister.text.toString(),
@@ -37,23 +35,20 @@ class RegistrationActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isSuccessful){
                         val user = hashMapOf(
-                            "username" to binding.editTextNameRegister,
-                            "email" to binding.editTextEmailRegister,
-                            "password" to binding.editTextPasswordRegister
+                            "username" to binding.editTextNameRegister.text.toString(),
+                            "email" to auth.currentUser?.email
                         )
                         db.collection("user").document(auth.currentUser?.uid.toString())
                             .set(user)
-
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                     }
                     else{
-                        Toast.makeText(this, "Unable to sign-in", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Unable to register", Toast.LENGTH_SHORT).show()
                     }
-
                 }.addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "")
+                    Toast.makeText(this, "Failed to register" , Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "Failed to register")
                 }
         }
 
@@ -61,7 +56,6 @@ class RegistrationActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-
-
     }
+
 }
