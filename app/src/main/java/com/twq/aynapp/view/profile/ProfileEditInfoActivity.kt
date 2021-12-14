@@ -67,39 +67,13 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun createDBStorage(){dbStorage = Firebase.storage}
-    fun setImageInStorage(imgUri: Uri): LiveData<String>{
-        if(dbStorage == null) createDBStorage()
-
-        val filename = UUID.randomUUID().toString()+".jpg"
-        val liveDataImage = MutableLiveData<String>()
-
-        val ref = dbStorage?.reference?.child(Firebase.auth.uid.toString())?.child(filename)
-        val uploadTask = ref?.putFile(imgUri)
-        uploadTask?.continueWithTask { task ->
-            if (!task.isSuccessful){
-                Log.d(TAG,"Not able to upload image")
-            }
-            ref.downloadUrl
-        }?.addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                val downloadUri = task.result
-                Log.d(TAG,downloadUri.toString())
-                liveDataImage.postValue(downloadUri.toString())
-        }
-        }?.addOnFailureListener {
-            Log.d(TAG,"Not able to upload image")
-        }
-        return liveDataImage
-    }
-
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             val uri: Uri = data?.data!!
             binding.imageViewProfileEditAvatar.setImageURI(uri)
-//            val vm:ProfileViewModel by viewModels()
-//            vm.setImg(uri)
+            val vm:ProfileViewModel by viewModels()
+            vm.setImg(uri)
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {
