@@ -28,6 +28,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         val db = Firebase.firestore
+
         binding.buttonRegistrationRegister.setOnClickListener {
             auth.createUserWithEmailAndPassword(
             binding.editTextEmailRegister.text.toString(),

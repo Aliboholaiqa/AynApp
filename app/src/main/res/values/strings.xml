@@ -24,4 +24,8 @@
     <string name="deville">https://www.nsclassics.com/galleria_images/2921/2921_p2_l.jpg</string>
     <string name="cady">https://static.wheels.ae/imgs/684_WH_160802_MW_tariq_AIZA-_9_-_Read-Only_-medium.jpg</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_changes">Confirm Changes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_image">Change Image</string>
+    <string name="bio">Bio</string>
 </resources>

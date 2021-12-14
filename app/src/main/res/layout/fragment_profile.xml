@@ -67,7 +67,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="75dp"
-                android:text="Ali Boholaiqa"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +81,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
-                android:text="This is a test for the bio to see if it fits"
+                android:text="No bio"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +109,7 @@
             android:layout_height="130dp"
             android:layout_gravity="center"
             android:foregroundGravity="center"
-            app:srcCompat="@mipmap/ic_launcher_ayn_round" />
+            app:srcCompat="@drawable/ic_profile" />
 
     </androidx.cardview.widget.CardView>
 

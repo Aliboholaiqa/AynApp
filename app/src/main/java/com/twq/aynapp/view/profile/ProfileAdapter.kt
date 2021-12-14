@@ -1,6 +1,9 @@
 package com.twq.aynapp.view.profile
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +20,20 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
         return ProfileHolder(v)
     }
 
+    fun decodeBase64(input: String?): Bitmap? {
+        val decodedBytes = Base64.decode(input, 0)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+
     override fun onBindViewHolder(holder: ProfileHolder, position: Int) {
         holder.vtitle.text = data[position].projectTitle
         Picasso.get().load(data[position].image).placeholder(R.drawable.ic_launcher_background).into(holder.vimage)
+
+//        if (data[position].image.length>30){
+//            holder.vimage.setImageBitmap(decodeBase64(data[position].image))
+//        }else{
+//            Picasso.get().load(data[position].image).into(holder.vimage)
+//        }
     }
 
     override fun getItemCount(): Int {

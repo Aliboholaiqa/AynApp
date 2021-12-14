@@ -37,10 +37,15 @@ android {
 
 dependencies {
 
+    //image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    //firebase
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     //lottie
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"

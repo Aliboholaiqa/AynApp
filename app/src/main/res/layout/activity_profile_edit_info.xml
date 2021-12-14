@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAvatar"
         app:startIconDrawable="@drawable/ic_profile">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -48,6 +48,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldEditBio"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/bio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldEditEmail"
+        app:startIconDrawable="@drawable/ic_paper">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEditProfileBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -55,8 +79,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="68dp"
-        android:text="Edit Profile"
+        android:layout_marginTop="32dp"
+        android:text="@string/edit_profile"
         android:textColor="#205163"
         android:textSize="45sp"
         android:textStyle="bold"
@@ -65,18 +89,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonChangeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="230dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:textAlignment="textStart"
+        app:backgroundTint="#F79B78"
+        app:layout_constraintBottom_toTopOf="@+id/textFieldEditName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_image" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEditInfo">
+
+        <ImageView
+            android:id="@+id/imageViewProfileEditAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="center"
+            app:srcCompat="@drawable/ic_profile"
+            tools:layout_conversion_absoluteHeight="130dp"
+            tools:layout_conversion_absoluteWidth="130dp"
+            tools:layout_editor_absoluteX="27dp"
+            tools:layout_editor_absoluteY="133dp" />
+
+    </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/buttonEditProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:text="Confirm Changes"
+        android:text="@string/confirm_changes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonChangeImage" />
+        app:layout_constraintTop_toBottomOf="@+id/textFieldEditBio" />
 
     <View
         android:id="@+id/divider"
@@ -102,18 +163,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonEditProfile" />
-
-    <Button
-        android:id="@+id/buttonChangeImage"
-        android:layout_width="198dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#F79B78"
-        android:drawableStart="@drawable/ic_image"
-        android:text="ChangeImage"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldEditEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
