@@ -19,6 +19,10 @@ class ProfileViewModel : ViewModel(){
         return user.updateProfile(username, id, image, email, bio, header)
     }
 
+    fun getProfileInfo(username:String, bio: String,avatar:String,header:String): LiveData<User>{
+        return fb.profileData(username, bio, avatar, header)
+    }
+
     fun setImg(image: Uri): LiveData<String> {
         return fb.setImageInStorage(image)
     }

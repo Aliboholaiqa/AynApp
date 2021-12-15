@@ -27,6 +27,7 @@ import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
+import com.twq.aynapp.model.User
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -35,6 +36,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileEditInfoBinding
     lateinit var db : FirebaseFirestore
     lateinit var dbStorage : FirebaseStorage
+    lateinit var user : User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileEditInfoBinding.inflate(layoutInflater)
@@ -43,7 +45,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         auth = Firebase.auth
         db = FirebaseFirestore.getInstance()
         dbStorage = Firebase.storage
-        val settings = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build()
+        //val settings = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build()
 
 
         binding.buttonChangeImage.setOnClickListener {
@@ -73,7 +75,9 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             val uri: Uri = data?.data!!
             binding.imageViewProfileEditAvatar.setImageURI(uri)
             val vm:ProfileViewModel by viewModels()
-            vm.setImg(uri)
+            vm.setImg(uri).observe(this,{
+                user.avatar = it
+            })
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {

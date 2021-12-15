@@ -28,4 +28,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="change_image">Change Image</string>
     <string name="bio">Bio</string>
+    <string name="add_project">Add project</string>
+    <string name="descriptiontext">Description:</string>
 </resources>

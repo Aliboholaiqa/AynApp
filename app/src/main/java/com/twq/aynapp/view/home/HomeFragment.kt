@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,11 +19,12 @@ class HomeFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_home, container, false)
         val vm : HomeViewModel by viewModels()
-        var hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
+        val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
         vm.getProjectData().observe(this,{
             hRecyclerView.adapter = HomeAdapter(it)
         })
+
 
         return v
     }

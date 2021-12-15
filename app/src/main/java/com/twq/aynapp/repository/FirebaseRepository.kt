@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
+import com.twq.aynapp.model.User
 import java.util.*
 
 class FirebaseRepository{
@@ -22,6 +23,20 @@ class FirebaseRepository{
 
     //fun createAuth(){auth = Firebase.auth}
     //fun createDB(){db = FirebaseFirestore.getInstance()}
+
+    fun profileData(username:String, bio: String,avatar:String,header:String): LiveData<User>{
+        val liveData = MutableLiveData<User>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .addSnapshotListener { user, error ->
+                if(user !=null){
+                    liveData.postValue(User("",
+                        user.getString("bio").toString(),
+                        avatar,header,"", user.getString("username").toString()
+                    ))
+                }
+            }
+        return liveData
+    }
 
     // Saving an image to firebase storage
     fun setImageInStorage(imgUri: Uri): LiveData<String> {
@@ -46,4 +61,5 @@ class FirebaseRepository{
         }
         return liveDataImage
     }
+
 }

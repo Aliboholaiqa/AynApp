@@ -16,7 +16,6 @@ class HomeDetailsActivity : AppCompatActivity() {
         binding.textViewDetailsProjectTitle.text = project.projectTitle
         binding.textViewDescription.text = project.description
         Picasso.get().load(project.image).into(binding.imageViewDetails)
-        setContentView(binding.root)
 
     }
 }
