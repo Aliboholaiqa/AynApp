@@ -2,7 +2,6 @@ package com.twq.aynapp.view.profile
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.twq.aynapp.model.Project
 import com.twq.aynapp.model.User

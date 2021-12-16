@@ -9,7 +9,6 @@ interface UserService {
     fun getUserByUsernameAndPassword(@Query("username")username:String,
                                      @Query("password")password:String): Call<List<User>>
 
-
     @PUT("User/{id}")
     fun uploadImage(@Path("id")id:String?, @Body user: User): Call<User>
 

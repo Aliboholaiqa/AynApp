@@ -46,18 +46,18 @@ class ProfileFragment : Fragment() {
         var image = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         var header = v.findViewById<ImageView>(R.id.imageViewHeader)
         val vm : ProfileViewModel by viewModels()
-        vm.getProfileInfo(username.text.toString(),bio.text.toString(),image.toString(),header.toString()).observe(this,{
-            //username = it.username
-        })
+//        vm.getProfileInfo(username.text.toString(),bio.text.toString(),image.toString(),header.toString()).observe(this,{
+//            //username = it.username
+//        })
 
-//        db.collection("user").document(auth.currentUser?.uid.toString())
-//            .addSnapshotListener { user, error ->
-//                if(user !=null){
-//                    username.text = user.getString("username")
-//                    bio.text = user.getString("bio")
-//
-//                }
-//            }
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .addSnapshotListener { user, error ->
+                if(user !=null){
+                    username.text = user.getString("username")
+                    bio.text = user.getString("bio")
+
+                }
+            }
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
         buttonProfileEdit.setOnClickListener {

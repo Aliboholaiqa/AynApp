@@ -3,32 +3,22 @@ package com.twq.aynapp.view.profile
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.squareup.picasso.Picasso
-import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
 import com.twq.aynapp.model.User
-import java.io.ByteArrayOutputStream
 import java.util.*
 
 class ProfileEditInfoActivity : AppCompatActivity() {
@@ -54,36 +44,36 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         }
 
         binding.buttonEditProfile.setOnClickListener {
-            db.collection("user")
-                .document(auth.currentUser?.uid.toString())
-                .update(mapOf(
-                    "username" to binding.editTextEditProfileName.text.toString(),
-                    "image" to binding.imageViewProfileEditAvatar,
-                    "bio" to binding.editTextEditProfileBio.text.toString()
-                )).addOnSuccessListener {
-                    Log.d(TAG, "Profile updated successfully")
-                    startActivity(Intent(this, ProfileFragment::class.java))
-                }.addOnFailureListener {
-                    Log.d(TAG, "Update error")
-                }
+//            db.collection("user")
+//                .document(auth.currentUser?.uid.toString())
+//                .update(mapOf(
+//                    "username" to binding.editTextEditProfileName.text.toString(),
+//                    "image" to binding.imageViewProfileEditAvatar,
+//                    "bio" to binding.editTextEditProfileBio.text.toString()
+//                )).addOnSuccessListener {
+//                    Log.d(TAG, "Profile updated successfully")
+//                    startActivity(Intent(this, ProfileFragment::class.java))
+//                }.addOnFailureListener {
+//                    Log.d(TAG, "Update error")
+//                }
         }
     }
 
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            val uri: Uri = data?.data!!
-            binding.imageViewProfileEditAvatar.setImageURI(uri)
-            val vm:ProfileViewModel by viewModels()
-            vm.setImg(uri).observe(this,{
-                user.avatar = it
-            })
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Task Cancelled $resultCode", Toast.LENGTH_SHORT).show()
-        }
-    }
+//        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == Activity.RESULT_OK) {
+//            val uri: Uri = data?.data!!
+//            binding.imageViewProfileEditAvatar.setImageURI(uri)
+//            val vm:ProfileViewModel by viewModels()
+//            vm.setImg(uri).observe(this,{
+//                user.avatar = it
+//            })
+//        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+//            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+//        } else {
+//            Toast.makeText(this, "Task Cancelled $resultCode", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 
 

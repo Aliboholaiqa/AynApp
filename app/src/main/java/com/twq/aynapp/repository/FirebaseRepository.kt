@@ -11,7 +11,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
 import com.twq.aynapp.model.User
 import java.util.*
 
@@ -29,9 +28,8 @@ class FirebaseRepository{
         db.collection("user").document(auth.currentUser?.uid.toString())
             .addSnapshotListener { user, error ->
                 if(user !=null){
-                    liveData.postValue(User("",
-                        user.getString("bio").toString(),
-                        avatar,header,"", user.getString("username").toString()
+                    liveData.postValue(User(avatar,
+                        user.getString("bio").toString(), "","",header,"" ,"",user.getString("username").toString()
                     ))
                 }
             }
