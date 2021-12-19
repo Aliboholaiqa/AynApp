@@ -5,17 +5,14 @@
     <item
         android:id="@+id/navHome"
         android:icon="@drawable/ic_home"
-        android:enabled="true"
         android:title="@string/home" />
     <item
         android:id="@+id/navSaved"
         android:icon="@drawable/ic_bookmark"
-        android:enabled="true"
         android:title="@string/saved" />
     <item
         android:id="@+id/navProfile"
         android:icon="@drawable/ic_profile"
-        android:enabled="true"
         android:title="@string/profile" />
 
 </menu>

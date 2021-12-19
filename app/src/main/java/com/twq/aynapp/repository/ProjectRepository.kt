@@ -21,12 +21,9 @@ class ProjectRepository {
                 val list = response.body()
                 mLiveData.postValue(list!!)
             }
-
             override fun onFailure(call: Call<List<Project>>, t: Throwable) {
                 Log.d("Doc Snippet", "Failed to get user")
-
             }
-
         })
         return mLiveData
     }

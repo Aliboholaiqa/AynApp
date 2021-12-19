@@ -3,7 +3,7 @@ package com.twq.aynapp.model
 import java.io.Serializable
 
 data class User(
-    val avatar: String,
+    var avatar: String,
     val bio: String,
     val email: String,
     val fb_id: String,
