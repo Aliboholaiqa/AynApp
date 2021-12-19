@@ -23,8 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
 import com.twq.aynapp.model.User
+import com.twq.aynapp.view.home.HomeFragment
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
@@ -49,7 +51,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         }
 
         binding.buttonEditProfile.setOnClickListener {
-
             db.collection("user")
                 .document(auth.currentUser?.uid.toString())
                 .update(
@@ -59,7 +60,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
                     )
                 ).addOnSuccessListener {
                     Log.d(TAG, "Profile updated successfully")
-                    startActivity(Intent(this, ProfileFragment::class.java))
+                    finish()
                 }.addOnFailureListener {
                     Log.d(TAG, "Update error")
                 }
@@ -98,12 +99,12 @@ class ProfileEditInfoActivity : AppCompatActivity() {
                 .addOnSuccessListener{ taskSnapshot ->
                         taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                             val imageUrl = it.toString()
-                            Log.d("Doc",imageUrl +"///////////")
+                            Log.d("Doc", fileName)
                             db.collection("user")
                                 .document(auth.currentUser?.uid.toString())
                                 .update(
                                     mapOf(
-                                        "avatar" to imageUrl
+                                        "avatar" to fileName
                                     )
                                 ).addOnSuccessListener {
                                     Log.d(TAG, "Profile updated successfully")

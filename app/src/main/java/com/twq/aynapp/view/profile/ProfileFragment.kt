@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -51,15 +52,23 @@ class ProfileFragment : Fragment() {
         var image = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         var header = v.findViewById<ImageView>(R.id.imageViewHeader)
         val vm : ProfileViewModel by viewModels()
-//        vm.getProfileInfo(username.text.toString(),bio.text.toString(),image.toString(),header.toString()).observe(this,{
-//            //username = it.username
-//        })
+
 
         db.collection("user").document(auth.currentUser?.uid.toString())
             .addSnapshotListener { user, error ->
                 if(user !=null){
                     username.text = user.getString("username")
                     bio.text = user.getString("bio")
+
+                    val fileName = user.getString("avatar")
+                    val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
+                    val localFile = File.createTempFile("tempImg","jpg")
+                    refStorage.getFile(localFile).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                        image.setImageBitmap(bitmap)
+                    }.addOnFailureListener{e->
+                        Log.d("Doc","Failed to get an image")
+                    }
                 }
             }
 
