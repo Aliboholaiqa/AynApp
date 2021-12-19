@@ -81,14 +81,11 @@ class ProfileEditInfoActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK) {
-
             // Get the Uri of data
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewProfileEditAvatar.setImageURI(file_uri)
-
                 uploadImageToFirebase(file_uri)
             }
         }

@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/navHome"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/home_selector"
         android:title="@string/home" />
     <item
         android:id="@+id/navSaved"
-        android:icon="@drawable/ic_bookmark"
+        android:icon="@drawable/bookmark_selector"
         android:title="@string/saved" />
     <item
         android:id="@+id/navProfile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/profile_selector"
         android:title="@string/profile" />
 
 </menu>
