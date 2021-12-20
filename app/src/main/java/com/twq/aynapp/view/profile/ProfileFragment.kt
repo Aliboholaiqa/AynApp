@@ -51,27 +51,38 @@ class ProfileFragment : Fragment() {
 
         val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
         val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
-        val image = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
+        val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         var header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
-        // get profile info from view model
-        db.collection("user").document(auth.currentUser?.uid.toString())
-            .addSnapshotListener { user, error ->
-                if(user !=null){
-                    username.text = user.getString("username")
-                    bio.text = user.getString("bio")
+        vm.getUserData(username.text.toString(),bio.text.toString(),
+            avatar,header.toString()).observe(this,{
+            username.text = it.username
+            bio.text = it.bio
+            Log.d("Doc","Username.text = "+it.header)
+            Log.d("Doc","Username.text = "+it.avatar)
 
-                    val fileName = user.getString("avatar")
-                    val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
-                    val localFile = File.createTempFile("tempImg","jpg")
-                    refStorage.getFile(localFile).addOnSuccessListener {
-                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                        image.setImageBitmap(bitmap)
-                    }.addOnFailureListener{e->
-                        Log.d("Doc","Failed to get an image")
-                    }
-                }
-            }
+        })
+
+        vm.getAvatarImageFromFirebase(avatar)
+
+        // get profile info from view model
+//        db.collection("user").document(auth.currentUser?.uid.toString())
+//            .addSnapshotListener { user, error ->
+//                if(user !=null){
+//                    username.text = user.getString("username")
+//                    bio.text = user.getString("bio")
+//
+//                    val fileName = user.getString("avatar")
+//                    val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
+//                    val localFile = File.createTempFile("tempImg","jpg")
+//                    refStorage.getFile(localFile).addOnSuccessListener {
+//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//                        image.setImageBitmap(bitmap)
+//                    }.addOnFailureListener{e->
+//                        Log.d("Doc","Failed to get an image")
+//                    }
+//                }
+//            }
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
         buttonProfileEdit.setOnClickListener {

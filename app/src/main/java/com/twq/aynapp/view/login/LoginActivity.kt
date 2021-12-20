@@ -31,12 +31,12 @@ class LoginActivity : AppCompatActivity() {
                 binding.editTextPasswordLogin.text.toString()
             ).observe(this, {
                 if (it) {
-                    Log.w(TAG, "signIn:sssssss")
+                    Log.w(TAG, "Login:success")
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signIn:failure")
+                    Log.w(TAG, "Login:failure")
                     Toast.makeText(
                         baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT
@@ -45,24 +45,6 @@ class LoginActivity : AppCompatActivity() {
             })
 
         }
-//                auth.signInWithEmailAndPassword(binding.editTextEmailLogin.text.toString()
-//                    ,binding.editTextPasswordLogin.text.toString())
-//                    .addOnCompleteListener(this) { task ->
-//                        if (task.isSuccessful) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            val user = auth.currentUser
-//                            Log.d(TAG,"User is $user")
-//                            Log.d(TAG, "signIn:success")
-//                            val intent = Intent(this,HomeActivity::class.java)
-//                            startActivity(intent)
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signIn:failure", task.exception)
-//                            Toast.makeText(baseContext, "Authentication failed.",
-//                                Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-
 
         //Go to registration page
         binding.buttonRegistration.setOnClickListener {

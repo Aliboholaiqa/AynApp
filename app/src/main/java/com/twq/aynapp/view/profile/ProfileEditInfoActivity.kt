@@ -50,10 +50,14 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         dbStorage = Firebase.storage
 
         // Changing profile avatar
-        binding.buttonChangeImage.setOnClickListener {
+        binding.buttonChangeAvatarImage.setOnClickListener {
             selectImageFromGallery()
+            vm.getAvatarImageFromFirebase(binding.imageViewProfileEditAvatar)
         }
 
+        binding.buttonHeaderChange.setOnClickListener {
+            selectImageFromGallery()
+        }
         binding.buttonEditProfile.setOnClickListener {
             db.collection("user")
                 .document(auth.currentUser?.uid.toString())
@@ -89,7 +93,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             // Get the Uri of data
             val file_uri = data?.data
             if (file_uri != null) {
-                binding.imageViewProfileEditAvatar.setImageURI(file_uri)
+                //binding.imageViewProfileEditAvatar.setImageURI(file_uri)
                 vm.uploadImageToFirebase(file_uri)
             }
         }
