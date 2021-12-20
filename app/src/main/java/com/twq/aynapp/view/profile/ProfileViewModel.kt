@@ -22,8 +22,8 @@ class ProfileViewModel : ViewModel(){
         return fb.profileData(username, bio, avatar, header)
     }
 
-    fun setImg(image: Uri): LiveData<String> {
-        return fb.setImageInStorage(image)
+    fun uploadImageToFirebase(fileUri: Uri): LiveData<String> {
+        return fb.uploadImageToFirebase(fileUri)
     }
 
     fun getProjectData(): LiveData<List<Project>> {

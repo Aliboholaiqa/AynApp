@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,14 +55,13 @@
         android:id="@+id/textEditInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/edit_profile"
         android:textColor="#205163"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,20 +69,22 @@
         android:id="@+id/buttonChangeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="230dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:textAlignment="textStart"
         app:backgroundTint="#F79B78"
-        app:layout_constraintBottom_toTopOf="@+id/textFieldEditName"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfileEditHeader"
         app:srcCompat="@drawable/ic_image" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="74dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="250dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,13 +96,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="center"
-            app:srcCompat="@drawable/ic_profile"
             tools:layout_conversion_absoluteHeight="130dp"
             tools:layout_conversion_absoluteWidth="130dp"
             tools:layout_editor_absoluteX="27dp"
             tools:layout_editor_absoluteY="133dp" />
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageViewProfileEditHeader"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEditInfo"
+        app:srcCompat="@mipmap/ic_launcher_header_background" />
 
     <Button
         android:id="@+id/buttonEditProfile"
@@ -141,5 +153,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonEditProfile" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_image"
+        app:backgroundTint="#F79B78"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEditInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

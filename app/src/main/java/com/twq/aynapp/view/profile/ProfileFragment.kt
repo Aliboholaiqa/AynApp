@@ -47,13 +47,14 @@ class ProfileFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
         val db = FirebaseFirestore.getInstance()
         val auth = Firebase.auth
-        var username = v.findViewById<TextView>(R.id.textViewProfileUsername)
-        var bio = v.findViewById<TextView>(R.id.textViewProfileBio)
-        var image = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
-        var header = v.findViewById<ImageView>(R.id.imageViewHeader)
         val vm : ProfileViewModel by viewModels()
 
+        val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
+        val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
+        val image = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
+        var header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
+        // get profile info from view model
         db.collection("user").document(auth.currentUser?.uid.toString())
             .addSnapshotListener { user, error ->
                 if(user !=null){
@@ -89,27 +90,6 @@ class ProfileFragment : Fragment() {
             pRecyclerView.adapter = ProfileAdapter(it)
         })
 
-//        fun getImageFromFirebase(){
-//            val progressDialog = ProgressDialog(context)
-//            progressDialog.setMessage("Fetching an image")
-//            progressDialog.setCancelable(false)
-//            progressDialog.show()
-//            val fileName = UUID.randomUUID().toString() +".jpg"
-//            val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
-//            val localFile = File.createTempFile("tempImg","jpg")
-//            refStorage.getFile(localFile).addOnSuccessListener {
-//                if (progressDialog.isShowing){
-//                    progressDialog.dismiss()
-//                }
-//                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                image.setImageBitmap(bitmap)
-//            }.addOnFailureListener{e->
-//                Log.d("Doc","Failed to get an image")
-//            }
-//        }
-
         return v
     }
-
-
 }

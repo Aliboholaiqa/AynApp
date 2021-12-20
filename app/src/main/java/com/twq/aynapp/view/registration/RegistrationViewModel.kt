@@ -12,7 +12,7 @@ class RegistrationViewModel : ViewModel(){
     fun register(username:String ,email: String, password:String): LiveData<Boolean> {
         val mLiveData = MutableLiveData<Boolean>()
         UserRepository().register(username,email, password).observeForever{
-            if(it.username.isNotEmpty()&&it.password.isNotEmpty()){
+            if(it.username.isNotEmpty()&&it.email.isNotEmpty()&&it.password.isNotEmpty()){
                 mLiveData.postValue(true)
             }else{
                 mLiveData.postValue(false)

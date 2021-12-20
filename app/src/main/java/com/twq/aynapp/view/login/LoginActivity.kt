@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -22,27 +23,46 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
-
+        val vm : LoginViewModel by viewModels()
         //Login using firebase
         binding.buttonLogin.setOnClickListener {
-                auth.signInWithEmailAndPassword(binding.editTextEmailLogin.text.toString()
-                    ,binding.editTextPasswordLogin.text.toString())
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            val user = auth.currentUser
-                            Log.d(TAG,"User is $user")
-                            Log.d(TAG, "signIn:success")
-                            val intent = Intent(this,HomeActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signIn:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            }
+            vm.login(
+                binding.editTextEmailLogin.text.toString(),
+                binding.editTextPasswordLogin.text.toString()
+            ).observe(this, {
+                if (it) {
+                    Log.w(TAG, "signIn:sssssss")
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signIn:failure")
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+
+        }
+//                auth.signInWithEmailAndPassword(binding.editTextEmailLogin.text.toString()
+//                    ,binding.editTextPasswordLogin.text.toString())
+//                    .addOnCompleteListener(this) { task ->
+//                        if (task.isSuccessful) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            val user = auth.currentUser
+//                            Log.d(TAG,"User is $user")
+//                            Log.d(TAG, "signIn:success")
+//                            val intent = Intent(this,HomeActivity::class.java)
+//                            startActivity(intent)
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signIn:failure", task.exception)
+//                            Toast.makeText(baseContext, "Authentication failed.",
+//                                Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+
 
         //Go to registration page
         binding.buttonRegistration.setOnClickListener {

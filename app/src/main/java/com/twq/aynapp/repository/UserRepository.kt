@@ -2,7 +2,9 @@ package com.twq.aynapp.repository
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
@@ -12,6 +14,7 @@ import com.twq.aynapp.model.User
 import com.twq.aynapp.network.Api
 import com.twq.aynapp.network.UserService
 import com.twq.aynapp.utility.SharedPreferenceHelper
+import com.twq.aynapp.view.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +44,25 @@ class UserRepository{
                 Log.d("Doc Snippet", "Failed to upload image")
             }
         })
+        return mLiveData
+    }
+
+    fun login (email: String,password: String):LiveData<User>{
+        val mLiveData = MutableLiveData<User>()
+        auth.signInWithEmailAndPassword(email,password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Log.d(ContentValues.TAG,"User is $user")
+                    Log.d(ContentValues.TAG, "signIn:success")
+                    mLiveData.postValue(User("","",email,"","","",password,""))
+                } else {
+
+                    // If sign in fails, display a message to the user.
+                    Log.w(ContentValues.TAG, "signIn:failure", task.exception)
+                }
+            }
+
         return mLiveData
     }
 

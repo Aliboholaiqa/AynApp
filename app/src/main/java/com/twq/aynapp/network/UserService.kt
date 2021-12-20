@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface UserService {
     @GET("users")
-    fun getUserByUsernameAndPassword(@Query("username")username:String,
+    fun getUserByEmailAndPassword(@Query("email")email:String,
                                      @Query("password")password:String): Call<List<User>>
 
     @PUT("User/{id}")
