@@ -45,8 +45,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
-        val db = FirebaseFirestore.getInstance()
-        val auth = Firebase.auth
         val vm : ProfileViewModel by viewModels()
 
         val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
@@ -54,35 +52,12 @@ class ProfileFragment : Fragment() {
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         var header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
-        vm.getUserData(username.text.toString(),bio.text.toString(),
-            avatar,header.toString()).observe(this,{
+        vm.getUserData().observe(this,{
             username.text = it.username
             bio.text = it.bio
-            Log.d("Doc","Username.text = "+it.header)
-            Log.d("Doc","Username.text = "+it.avatar)
-
+            vm.getAvatarImageFromFirebase(it.avatar,avatar)
+            vm.getAvatarImageFromFirebase(it.header,header)
         })
-
-        vm.getAvatarImageFromFirebase(avatar)
-
-        // get profile info from view model
-//        db.collection("user").document(auth.currentUser?.uid.toString())
-//            .addSnapshotListener { user, error ->
-//                if(user !=null){
-//                    username.text = user.getString("username")
-//                    bio.text = user.getString("bio")
-//
-//                    val fileName = user.getString("avatar")
-//                    val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
-//                    val localFile = File.createTempFile("tempImg","jpg")
-//                    refStorage.getFile(localFile).addOnSuccessListener {
-//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                        image.setImageBitmap(bitmap)
-//                    }.addOnFailureListener{e->
-//                        Log.d("Doc","Failed to get an image")
-//                    }
-//                }
-//            }
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
         buttonProfileEdit.setOnClickListener {

@@ -2,6 +2,7 @@ package com.twq.aynapp.view.profile
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
@@ -49,31 +50,33 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         dbStorage = Firebase.storage
 
+        vm.getUserData().observe(this,{
+            binding.editTextEditProfileName.setText(it.username)
+            binding.editTextEditProfileBio.setText(it.bio)
+            vm.getAvatarImageFromFirebase(it.avatar,binding.imageViewProfileEditAvatar)
+            vm.getAvatarImageFromFirebase(it.header,binding.imageViewProfileEditHeader)
+        })
         // Changing profile avatar
         binding.buttonChangeAvatarImage.setOnClickListener {
             selectImageFromGallery()
-            vm.getAvatarImageFromFirebase(binding.imageViewProfileEditAvatar)
         }
 
+        // Changing profile header
         binding.buttonHeaderChange.setOnClickListener {
             selectImageFromGallery()
         }
-        binding.buttonEditProfile.setOnClickListener {
-            db.collection("user")
-                .document(auth.currentUser?.uid.toString())
-                .update(
-                    mapOf(
-                        "username" to binding.editTextEditProfileName.text.toString(),
-                        "bio" to binding.editTextEditProfileBio.text.toString(),
-                    )
-                ).addOnSuccessListener {
-                    Log.d(TAG, "Profile updated successfully")
-                    finish()
-                }.addOnFailureListener {
-                    Log.d(TAG, "Update error")
-                }
-        }
 
+
+
+        binding.buttonEditProfile.setOnClickListener {
+            vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
+            binding.editTextEditProfileBio.text.toString(),binding.imageViewProfileEditAvatar.toString(),
+            binding.imageViewProfileEditHeader.toString()).observe(this,{
+                binding.editTextEditProfileName.setText(it.username)
+                binding.editTextEditProfileBio.setText(it.bio)
+            })
+            finish()
+        }
     }
 
     //image
@@ -93,8 +96,9 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             // Get the Uri of data
             val file_uri = data?.data
             if (file_uri != null) {
-                //binding.imageViewProfileEditAvatar.setImageURI(file_uri)
-                vm.uploadImageToFirebase(file_uri)
+                vm.uploadImageToFirebase(file_uri).observe(this,{
+                    vm.updateAvatar(it)
+                })
             }
         }
     }

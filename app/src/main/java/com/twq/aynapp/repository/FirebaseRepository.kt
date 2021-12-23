@@ -24,18 +24,21 @@ class FirebaseRepository{
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-    fun profileData(username:String, bio: String,avatar:String,header:String): LiveData<User>{
-        val liveData = MutableLiveData<User>()
-        db.collection("user").document(auth.currentUser?.uid.toString())
-            .addSnapshotListener { user, error ->
-                if(user !=null){
-                    liveData.postValue(User(avatar,
-                        user.getString("bio").toString(), "","",header,
-                        "" ,"",user.getString("username").toString()
-                    ))
+    fun updateUserProfile(username:String, bio: String,avatar:String,header:String): LiveData<User>{
+        val livedata = MutableLiveData<User>()
+            db.collection("user")
+                .document(auth.currentUser?.uid.toString())
+                .update(
+                    mapOf(
+                        "username" to username,
+                        "bio" to bio,
+                    )
+                ).addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "Profile updated successfully")
+                }.addOnFailureListener {
+                    Log.d(ContentValues.TAG, "Update error")
                 }
-            }
-        return liveData
+        return livedata
     }
 
     fun uploadImageToFirebase(fileUri: Uri) : LiveData<String> {
@@ -49,17 +52,6 @@ class FirebaseRepository{
                         val imageUrl = it.toString()
                         Log.d("Doc", fileName)
                         livedata.postValue(fileName)
-//                        db.collection("user")
-//                            .document(auth.currentUser?.uid.toString())
-//                            .update(
-//                                mapOf(
-//                                    "avatar" to fileName
-//                                )
-//                            ).addOnSuccessListener {
-//                                Log.d(ContentValues.TAG, "Profile updated successfully")
-//                            }.addOnFailureListener {
-//                                Log.d(ContentValues.TAG, "Update error")
-//                            }
                     }
                 }
                 ?.addOnFailureListener{ e ->
@@ -69,49 +61,54 @@ class FirebaseRepository{
         return livedata
     }
 
-    fun getUserData(username: String,bio: String,avatar:ImageView,header: String): LiveData<User>{
+    fun updateAvatar(imageName: String): LiveData<String>{
+        val livedata = MutableLiveData<String>()
+        db.collection("user")
+            .document(auth.currentUser?.uid.toString())
+            .update(
+                mapOf(
+                    "avatar" to imageName
+                )
+            ).addOnSuccessListener {
+                livedata.postValue(imageName)
+                Log.d(ContentValues.TAG, "Profile updated successfully")
+            }.addOnFailureListener {
+                Log.d(ContentValues.TAG, "Update error")
+            }
+        return livedata
+    }
+
+    fun getUserData(): LiveData<User>{
         val liveData = MutableLiveData<User>()
         db.collection("user").document(auth.currentUser?.uid.toString())
         .addSnapshotListener { user, error ->
             if(user !=null) {
-                //username = user.getString("username").toString()
-                //bio = user.getString("bio")
                 liveData.postValue(
                     User(
-                        "", user.getString("bio").toString(),
-                        "", "", "", "", "",
+                        user.getString("avatar").toString(), user.getString("bio").toString(),
+                        "", "", user.getString("header").toString(), "", "",
                         user.getString("username").toString()
                     )
                 )
-//                val fileName = user.getString("avatar")
-//                val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
-//                val localFile = File.createTempFile("tempImg","jpg")
-//                refStorage.getFile(localFile).addOnSuccessListener {
-////                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-////                    avatar.setImageBitmap(bitmap)
-//
-//
-//                }.addOnFailureListener{e->
-//                    Log.d("Doc","Failed to get an image")
-//                }
             }
         }
         return liveData
     }
 
-    fun getAvatarImageFromFirebase(image: ImageView): LiveData<String> {
+    fun getAvatarImageFromFirebase(imageName: String,image: ImageView): LiveData<String> {
         val liveData = MutableLiveData<String>()
         db.collection("user").document(auth.currentUser?.uid.toString())
             .addSnapshotListener { user, error ->
                 if (user != null) {
-                    val fileName = user.getString("avatar")
+                   // val fileName = user.getString("avatar")
+                       val fileName = imageName
                     val refStorage =
                         FirebaseStorage.getInstance().reference.child("images/$fileName")
                     val localFile = File.createTempFile("tempImg", "jpg")
                     refStorage.getFile(localFile).addOnSuccessListener {
                         val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                         image.setImageBitmap(bitmap)
-                        liveData.postValue(image.toString())
+                        liveData.postValue(imageName)
                     }.addOnFailureListener { e ->
                         Log.d("Doc", "Failed to get an image")
                     }
