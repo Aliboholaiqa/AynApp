@@ -1,6 +1,8 @@
 package com.twq.aynapp.repository
 
+import android.app.ProgressDialog
 import android.content.ContentValues
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.twq.aynapp.model.Project
 import com.twq.aynapp.model.User
 import java.io.File
 import java.util.*
@@ -23,6 +26,40 @@ class FirebaseRepository{
     val auth = Firebase.auth
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
+
+    fun addProject(projectTitle: String,description: String):LiveData<Project> {
+        val liveData = MutableLiveData<Project>()
+        val project = hashMapOf(
+            "title" to projectTitle,
+            "description" to description)
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("project").add(project).addOnCompleteListener {
+                if (it.isSuccessful){
+                    Log.d("Doc","Added project successfully")
+            }else{
+                    Log.d("Doc","Failed to add project")
+                }
+            }.addOnFailureListener {
+                Log.d("Doc","Failed to add project")
+            }
+        return liveData
+    }
+
+    fun addImage(imageName: String): LiveData<String>{
+        val liveData = MutableLiveData<String>()
+        db.collection("user")
+            .document(auth.currentUser?.uid.toString()).collection("project").document()
+            .update(
+                mapOf(
+                    "image" to imageName
+                )
+            ).addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Added image successfully")
+            }.addOnFailureListener {
+                Log.d(ContentValues.TAG, "Failed to add image")
+            }
+        return liveData
+    }
 
     fun updateUserProfile(username:String, bio: String,avatar:String,header:String): LiveData<User>{
         val livedata = MutableLiveData<User>()
@@ -52,6 +89,7 @@ class FirebaseRepository{
                         val imageUrl = it.toString()
                         Log.d("Doc", fileName)
                         livedata.postValue(fileName)
+                        addImage(fileName)
                     }
                 }
                 ?.addOnFailureListener{ e ->
@@ -95,13 +133,12 @@ class FirebaseRepository{
         return liveData
     }
 
-    fun getAvatarImageFromFirebase(imageName: String,image: ImageView): LiveData<String> {
+    fun getImageFromFirebase(imageName: String,image: ImageView): LiveData<String> {
         val liveData = MutableLiveData<String>()
         db.collection("user").document(auth.currentUser?.uid.toString())
             .addSnapshotListener { user, error ->
                 if (user != null) {
-                   // val fileName = user.getString("avatar")
-                       val fileName = imageName
+                    val fileName = imageName
                     val refStorage =
                         FirebaseStorage.getInstance().reference.child("images/$fileName")
                     val localFile = File.createTempFile("tempImg", "jpg")
@@ -118,26 +155,6 @@ class FirebaseRepository{
     }
 
 
-//    fun getHeaderImageFromFirebase(image: ImageView): LiveData<String> {
-//        val liveData = MutableLiveData<String>()
-//        db.collection("user").document(auth.currentUser?.uid.toString())
-//            .addSnapshotListener { user, error ->
-//                if (user != null) {
-//                    val fileName = user.getString("header")
-//                    val refStorage =
-//                        FirebaseStorage.getInstance().reference.child("images/$fileName")
-//                    val localFile = File.createTempFile("tempImg", "jpg")
-//                    refStorage.getFile(localFile).addOnSuccessListener {
-//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                        image.setImageBitmap(bitmap)
-//                        liveData.postValue(image.toString())
-//                    }.addOnFailureListener { e ->
-//                        Log.d("Doc", "Failed to get an image")
-//                    }
-//                }
-//            }
-//        return liveData
-//    }
 
 
 }

@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/project_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewProjectImage"
         app:startIconDrawable="@drawable/ic_image">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEditProfileName"
+            android:id="@+id/editTextAddProjectTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -45,7 +45,7 @@
         app:startIconDrawable="@drawable/ic_paper">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEditProfileBio"
+            android:id="@+id/editTextAddProjectDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Add a project"
+        android:text="@string/add_a_project"
         android:textColor="#205163"
         android:textSize="45sp"
         android:textStyle="bold"
@@ -68,9 +68,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAvatar"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:id="@+id/cardViewProjectImage"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
         android:layout_marginTop="24dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp"
@@ -128,5 +128,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAddProject" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonAddImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:backgroundTint="#F79B78"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardViewProjectImage"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

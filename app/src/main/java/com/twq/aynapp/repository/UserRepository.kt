@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
@@ -15,10 +16,20 @@ import com.twq.aynapp.network.Api
 import com.twq.aynapp.network.UserService
 import com.twq.aynapp.utility.SharedPreferenceHelper
 import com.twq.aynapp.view.home.HomeActivity
+import com.twq.aynapp.view.profile.ProfileEditInfoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import androidx.core.content.ContextCompat.startActivity
+
+import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
+
+import com.google.android.gms.tasks.OnCompleteListener
+
+
+
 
 class UserRepository{
 
@@ -47,6 +58,7 @@ class UserRepository{
 //        return mLiveData
 //    }
 
+    // Login
     fun login (email: String,password: String):LiveData<User>{
         val mLiveData = MutableLiveData<User>()
         auth.signInWithEmailAndPassword(email,password)
@@ -116,4 +128,7 @@ class UserRepository{
         return mLiveData
     }
 
+    fun signout(){
+         Firebase.auth.signOut()
+    }
 }

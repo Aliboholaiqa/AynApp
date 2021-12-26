@@ -53,8 +53,8 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         vm.getUserData().observe(this,{
             binding.editTextEditProfileName.setText(it.username)
             binding.editTextEditProfileBio.setText(it.bio)
-            vm.getAvatarImageFromFirebase(it.avatar,binding.imageViewProfileEditAvatar)
-            vm.getAvatarImageFromFirebase(it.header,binding.imageViewProfileEditHeader)
+            vm.getImageFromFirebase(it.avatar,binding.imageViewProfileEditAvatar)
+            vm.getImageFromFirebase(it.header,binding.imageViewProfileEditHeader)
         })
         // Changing profile avatar
         binding.buttonChangeAvatarImage.setOnClickListener {

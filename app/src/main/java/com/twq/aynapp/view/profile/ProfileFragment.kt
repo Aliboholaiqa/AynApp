@@ -14,10 +14,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +31,7 @@ import com.twq.aynapp.model.*
 import com.twq.aynapp.view.home.HomeActivity
 import com.twq.aynapp.view.home.HomeAdapter
 import com.twq.aynapp.view.home.HomeViewModel
+import com.twq.aynapp.view.login.LoginActivity
 import java.io.File
 import java.util.*
 
@@ -46,25 +45,49 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
         val vm : ProfileViewModel by viewModels()
-
+        val auth = Firebase.auth
         val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
         val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         var header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
+        val progressDialog =ProgressDialog(context)
+        progressDialog.setTitle("Please wait...")
+        progressDialog.setMessage("Yabn alhalal waittt")
+        progressDialog.show()
         vm.getUserData().observe(this,{
             username.text = it.username
             bio.text = it.bio
-            vm.getAvatarImageFromFirebase(it.avatar,avatar)
-            vm.getAvatarImageFromFirebase(it.header,header)
+            vm.getImageFromFirebase(it.avatar,avatar).observe(this,{
+                    progressDialog.dismiss()
+            })
         })
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
+
+        // spinner with edit profile and sign out
         buttonProfileEdit.setOnClickListener {
-            val intent = Intent (context, ProfileEditInfoActivity::class.java)
-            startActivity(intent)
+            val profileMenu= PopupMenu(context,buttonProfileEdit)
+            profileMenu.menuInflater.inflate(R.menu.profile_menu,profileMenu.menu)
+            profileMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.editProfileItem -> {val intent = Intent (context, ProfileEditInfoActivity::class.java)
+                        startActivity(intent) }
+                    R.id.signOutItem -> { auth.signOut()
+                        val intent = Intent (context, LoginActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+                true
+            }
+            )
+            profileMenu.show()
         }
-        val buttonAdd = v.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+
+
+        val buttonAdd = v.findViewById<Button>(R.id.floatingActionButton)
         buttonAdd.setOnClickListener {
             val intent = Intent (context, ProfileAddProjectActivity::class.java)
             startActivity(intent)
