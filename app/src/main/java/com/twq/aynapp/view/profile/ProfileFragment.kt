@@ -49,11 +49,10 @@ class ProfileFragment : Fragment() {
         val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
         val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
-        var header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
         val progressDialog =ProgressDialog(context)
         progressDialog.setTitle("Please wait...")
-        progressDialog.setMessage("Yabn alhalal waittt")
+        //progressDialog.setMessage("Waiting for information ")
         progressDialog.show()
         vm.getUserData().observe(this,{
             username.text = it.username
@@ -85,8 +84,6 @@ class ProfileFragment : Fragment() {
             profileMenu.show()
         }
 
-
-
         val buttonAdd = v.findViewById<Button>(R.id.floatingActionButton)
         buttonAdd.setOnClickListener {
             val intent = Intent (context, ProfileAddProjectActivity::class.java)
@@ -95,8 +92,12 @@ class ProfileFragment : Fragment() {
 
         val pRecyclerView = v.findViewById<RecyclerView>(R.id.pRecyclerView)
         pRecyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        vm.getProjectData().observe(this,{
-            pRecyclerView.adapter = ProfileAdapter(it)
+//        vm.getProjectData().observe(this,{
+//            pRecyclerView.adapter = ProfileAdapter(it)
+//        })
+//
+        vm.getUserProject().observe(this,{
+                pRecyclerView.adapter = ProfileAdapter(it)
         })
 
         return v

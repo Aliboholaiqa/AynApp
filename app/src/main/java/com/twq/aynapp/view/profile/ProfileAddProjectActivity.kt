@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileAddProjectBinding
 
@@ -20,21 +21,14 @@ class ProfileAddProjectActivity : AppCompatActivity() {
         binding = ActivityProfileAddProjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.floatingActionButtonAddImage.setOnClickListener {
             selectImageFromGallery()
         }
 
-        binding.buttonAddProject.setOnClickListener {
-            vm.addProject(
-                binding.editTextAddProjectTitle.text.toString(),
-                binding.editTextAddProjectDescription.text.toString()).observe(this,{
-            })
-
+        binding.buttonCancelAdding.setOnClickListener {
             finish()
         }
-
-    }
+   }
 
     //image
     private fun selectImageFromGallery() {
@@ -55,7 +49,14 @@ class ProfileAddProjectActivity : AppCompatActivity() {
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewAddProjectImage.setImageURI(file_uri)
-                vm.uploadImageToFirebase(file_uri)
+                binding.buttonAddProject.setOnClickListener {
+                    vm.uploadImageToFirebase(file_uri).observe(this, {
+                        vm.addProject(
+                            binding.editTextAddProjectTitle.text.toString(),
+                            binding.editTextAddProjectDescription.text.toString(), it)
+                    }
+                    )
+                }
             }
         }
     }

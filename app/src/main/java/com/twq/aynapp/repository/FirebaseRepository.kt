@@ -3,10 +3,12 @@ package com.twq.aynapp.repository
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.model.Project
 import com.twq.aynapp.model.User
+import com.twq.aynapp.view.profile.ProfileFragment
 import java.io.File
 import java.util.*
 
@@ -27,36 +30,24 @@ class FirebaseRepository{
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-    fun addProject(projectTitle: String,description: String):LiveData<Project> {
+    fun addProject(projectTitle: String,description: String,image: String):LiveData<Project> {
         val liveData = MutableLiveData<Project>()
         val project = hashMapOf(
             "title" to projectTitle,
-            "description" to description)
+            "description" to description,
+            "image" to image
+        )
         db.collection("user").document(auth.currentUser?.uid.toString())
             .collection("project").add(project).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d("Doc","Added project successfully")
+//                    val intent = Intent (con, ProfileFragment::class.java)
+//                    startActivity(intent)
             }else{
                     Log.d("Doc","Failed to add project")
                 }
             }.addOnFailureListener {
                 Log.d("Doc","Failed to add project")
-            }
-        return liveData
-    }
-
-    fun addImage(imageName: String): LiveData<String>{
-        val liveData = MutableLiveData<String>()
-        db.collection("user")
-            .document(auth.currentUser?.uid.toString()).collection("project").document()
-            .update(
-                mapOf(
-                    "image" to imageName
-                )
-            ).addOnSuccessListener {
-                Log.d(ContentValues.TAG, "Added image successfully")
-            }.addOnFailureListener {
-                Log.d(ContentValues.TAG, "Failed to add image")
             }
         return liveData
     }
@@ -87,9 +78,10 @@ class FirebaseRepository{
                 .addOnSuccessListener{ taskSnapshot ->
                     taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                         val imageUrl = it.toString()
-                        Log.d("Doc", fileName)
-                        livedata.postValue(fileName)
-                        addImage(fileName)
+                        Log.d("Doc", "Image Url"+imageUrl)
+                        Log.d("Doc", "Image Name"+fileName)
+                        livedata.postValue(imageUrl)
+                        //addImage(imageUrl)
                     }
                 }
                 ?.addOnFailureListener{ e ->
@@ -153,9 +145,6 @@ class FirebaseRepository{
             }
         return liveData
     }
-
-
-
 
 }
 

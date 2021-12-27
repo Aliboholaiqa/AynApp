@@ -2,16 +2,25 @@ package com.twq.aynapp.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.model.User
 import com.twq.aynapp.network.Api
 import com.twq.aynapp.network.ProjectService
 import com.twq.aynapp.network.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ProjectRepository {
     var projectService = Api.getInstance().create(ProjectService::class.java)
+    val auth = Firebase.auth
+    val db = Firebase.firestore
+    val dbStorage = Firebase.storage
 
     //Getting all the projects of all the user
     fun projects(): MutableLiveData<List<Project>> {
@@ -21,6 +30,7 @@ class ProjectRepository {
                 val list = response.body()
                 mLiveData.postValue(list!!)
             }
+
             override fun onFailure(call: Call<List<Project>>, t: Throwable) {
                 Log.d("Doc Snippet", "Failed to get user")
             }
@@ -28,8 +38,30 @@ class ProjectRepository {
         return mLiveData
     }
 
+    fun getUserProject(): MutableLiveData<List<Project>> {
+        val mLiveData = MutableLiveData<List<Project>>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("project").get()
+            .addOnCompleteListener { project ->
+                if (project.isSuccessful) {
+                    val list = mutableListOf<Project>()
 
+                    for (document in project.result!!) {
+                        list.add(
+                            Project(
+                                "",
+                                document.getString("description")!!,
+                                "",
+                                document.getString("image")!!,
+                                document.getString("title")!!
+                            )
+                        )
 
-    //Getting a single user project for profile page
-
+                    }
+                    mLiveData.postValue(list)
+                }
+            }
+        Log.d("Doc", mLiveData.toString())
+        return mLiveData
+    }
 }

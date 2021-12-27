@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.view.home.HomeDetailsActivity
 
 class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileHolder {
@@ -29,15 +30,14 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
         holder.vtitle.text = data[position].projectTitle
         Picasso.get().load(data[position].image).placeholder(R.drawable.ic_launcher_background).into(holder.vimage)
 
-//        if (data[position].image.length>30){
-//            holder.vimage.setImageBitmap(decodeBase64(data[position].image))
-//        }else{
-//            Picasso.get().load(data[position].image).into(holder.vimage)
-//        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
+            intent.putExtra("project",data[position])
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
-
         return data.size
     }
 

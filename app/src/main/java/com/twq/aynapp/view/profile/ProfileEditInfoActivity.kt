@@ -65,9 +65,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         binding.buttonHeaderChange.setOnClickListener {
             selectImageFromGallery()
         }
-
-
-
         binding.buttonEditProfile.setOnClickListener {
             vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
             binding.editTextEditProfileBio.text.toString(),binding.imageViewProfileEditAvatar.toString(),
@@ -75,6 +72,10 @@ class ProfileEditInfoActivity : AppCompatActivity() {
                 binding.editTextEditProfileName.setText(it.username)
                 binding.editTextEditProfileBio.setText(it.bio)
             })
+            finish()
+        }
+
+        binding.buttonCancel.setOnClickListener {
             finish()
         }
     }
