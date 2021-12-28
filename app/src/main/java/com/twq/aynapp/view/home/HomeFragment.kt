@@ -21,9 +21,9 @@ class HomeFragment : Fragment() {
         val vm : HomeViewModel by viewModels()
         val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
-        vm.getProjectData().observe(this,{
-            hRecyclerView.adapter = HomeAdapter(it)
-        })
+//        vm.getProjectData().observe(this,{
+//            hRecyclerView.adapter = HomeAdapter(it)
+//        })
 
 
         return v

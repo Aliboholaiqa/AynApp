@@ -1,26 +1,19 @@
 package com.twq.aynapp.repository
 
-import android.app.ProgressDialog
 import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.model.Project
 import com.twq.aynapp.model.User
-import com.twq.aynapp.view.profile.ProfileFragment
 import java.io.File
 import java.util.*
 
@@ -30,42 +23,38 @@ class FirebaseRepository{
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-    fun addProject(projectTitle: String,description: String,image: String):LiveData<Project> {
-        val liveData = MutableLiveData<Project>()
-        val project = hashMapOf(
-            "title" to projectTitle,
-            "description" to description,
-            "image" to image
-        )
-        db.collection("user").document(auth.currentUser?.uid.toString())
-            .collection("project").add(project).addOnCompleteListener {
-                if (it.isSuccessful){
-                    Log.d("Doc","Added project successfully")
-//                    val intent = Intent (con, ProfileFragment::class.java)
-//                    startActivity(intent)
-            }else{
-                    Log.d("Doc","Failed to add project")
-                }
-            }.addOnFailureListener {
-                Log.d("Doc","Failed to add project")
-            }
-        return liveData
-    }
+//    fun updateUserProfile(username:String, bio: String,avatar:String,header:String): LiveData<User>{
+//        val livedata = MutableLiveData<User>()
+//            db.collection("user")
+//                .document(auth.currentUser?.uid.toString())
+//                .update(
+//                    mapOf(
+//                        "username" to username,
+//                        "bio" to bio,
+//                        "avatar" to avatar
+//                    )
+//                ).addOnSuccessListener {
+//                    Log.d(ContentValues.TAG, "Profile updated successfully")
+//                }.addOnFailureListener {
+//                    Log.d(ContentValues.TAG, "Update error")
+//                }
+//        return livedata
+//    }
 
-    fun updateUserProfile(username:String, bio: String,avatar:String,header:String): LiveData<User>{
+    fun editUserProfile(username:String, bio: String): LiveData<User>{
         val livedata = MutableLiveData<User>()
-            db.collection("user")
-                .document(auth.currentUser?.uid.toString())
-                .update(
-                    mapOf(
-                        "username" to username,
-                        "bio" to bio,
-                    )
-                ).addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Profile updated successfully")
-                }.addOnFailureListener {
-                    Log.d(ContentValues.TAG, "Update error")
-                }
+        db.collection("user")
+            .document(auth.currentUser?.uid.toString())
+            .update(
+                mapOf(
+                    "username" to username,
+                    "bio" to bio
+                )
+            ).addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Profile updated successfully")
+            }.addOnFailureListener {
+                Log.d(ContentValues.TAG, "Update error")
+            }
         return livedata
     }
 
@@ -82,6 +71,7 @@ class FirebaseRepository{
                         Log.d("Doc", "Image Name"+fileName)
                         livedata.postValue(imageUrl)
                         //addImage(imageUrl)
+                        updateAvatar(imageUrl)
                     }
                 }
                 ?.addOnFailureListener{ e ->
@@ -106,23 +96,6 @@ class FirebaseRepository{
                 Log.d(ContentValues.TAG, "Update error")
             }
         return livedata
-    }
-
-    fun getUserData(): LiveData<User>{
-        val liveData = MutableLiveData<User>()
-        db.collection("user").document(auth.currentUser?.uid.toString())
-        .addSnapshotListener { user, error ->
-            if(user !=null) {
-                liveData.postValue(
-                    User(
-                        user.getString("avatar").toString(), user.getString("bio").toString(),
-                        "", "", user.getString("header").toString(), "", "",
-                        user.getString("username").toString()
-                    )
-                )
-            }
-        }
-        return liveData
     }
 
     fun getImageFromFirebase(imageName: String,image: ImageView): LiveData<String> {

@@ -57,9 +57,8 @@ class ProfileFragment : Fragment() {
         vm.getUserData().observe(this,{
             username.text = it.username
             bio.text = it.bio
-            vm.getImageFromFirebase(it.avatar,avatar).observe(this,{
-                    progressDialog.dismiss()
-            })
+            Picasso.get().load(it.avatar).into(avatar)
+            progressDialog.dismiss()
         })
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)

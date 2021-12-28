@@ -53,7 +53,10 @@ class ProfileAddProjectActivity : AppCompatActivity() {
                     vm.uploadImageToFirebase(file_uri).observe(this, {
                         vm.addProject(
                             binding.editTextAddProjectTitle.text.toString(),
-                            binding.editTextAddProjectDescription.text.toString(), it)
+                            binding.editTextAddProjectDescription.text.toString(), it).observe(this,{
+                                finish()
+                        })
+
                     }
                     )
                 }

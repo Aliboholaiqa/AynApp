@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
 import com.twq.aynapp.model.User
@@ -38,7 +39,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileEditInfoBinding
     lateinit var db: FirebaseFirestore
     lateinit var dbStorage: FirebaseStorage
-    lateinit var user: User
     val vm: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +53,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         vm.getUserData().observe(this,{
             binding.editTextEditProfileName.setText(it.username)
             binding.editTextEditProfileBio.setText(it.bio)
-            vm.getImageFromFirebase(it.avatar,binding.imageViewProfileEditAvatar)
-            vm.getImageFromFirebase(it.header,binding.imageViewProfileEditHeader)
+            Picasso.get().load(it.avatar).into(binding.imageViewProfileEditAvatar)
         })
         // Changing profile avatar
         binding.buttonChangeAvatarImage.setOnClickListener {
@@ -62,17 +61,25 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         }
 
         // Changing profile header
-        binding.buttonHeaderChange.setOnClickListener {
-            selectImageFromGallery()
-        }
+//        binding.buttonHeaderChange.setOnClickListener {
+//            selectImageFromGallery()
+//        }
         binding.buttonEditProfile.setOnClickListener {
-            vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
-            binding.editTextEditProfileBio.text.toString(),binding.imageViewProfileEditAvatar.toString(),
-            binding.imageViewProfileEditHeader.toString()).observe(this,{
+            vm.editUserProfile(binding.editTextEditProfileName.text.toString(),
+            binding.editTextEditProfileBio.text.toString()).observe(this,{
                 binding.editTextEditProfileName.setText(it.username)
                 binding.editTextEditProfileBio.setText(it.bio)
             })
             finish()
+
+//            vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
+//            binding.editTextEditProfileBio.text.toString(),user.avatar,
+//            binding.imageViewProfileEditHeader.toString()).observe(this,{
+//                binding.editTextEditProfileName.setText(it.username)
+//                binding.editTextEditProfileBio.setText(it.bio)
+//                Picasso.get().load(it.avatar).into(binding.imageViewProfileEditAvatar)
+//            })
+//            finish()
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -97,9 +104,18 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             // Get the Uri of data
             val file_uri = data?.data
             if (file_uri != null) {
-                vm.uploadImageToFirebase(file_uri).observe(this,{
-                    vm.updateAvatar(it)
-                })
+                binding.imageViewProfileEditAvatar.setImageURI(file_uri)
+                vm.uploadImageToFirebase(file_uri)
+ //               vm.uploadImageToFirebase(file_uri)
+//                binding.buttonEditProfile.setOnClickListener {
+//                    vm.uploadImageToFirebase(file_uri).observe(this,{
+//                    vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
+//                        binding.editTextEditProfileBio.text.toString(),it,
+//                        binding.imageViewProfileEditHeader.toString())
+//                })
+//                }
+
+
             }
         }
     }

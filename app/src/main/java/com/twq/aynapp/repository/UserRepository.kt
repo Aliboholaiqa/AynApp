@@ -128,6 +128,24 @@ class UserRepository{
         return mLiveData
     }
 
+    // Get user data from firebase
+    fun getUserData(): LiveData<User>{
+        val liveData = MutableLiveData<User>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .addSnapshotListener { user, error ->
+                if(user !=null) {
+                    liveData.postValue(
+                        User(
+                            user.getString("avatar").toString(), user.getString("bio").toString(),
+                            "", "", user.getString("header").toString(), "", "",
+                            user.getString("username").toString()
+                        )
+                    )
+                }
+            }
+        return liveData
+    }
+
     fun signout(){
          Firebase.auth.signOut()
     }

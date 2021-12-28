@@ -1,6 +1,7 @@
 package com.twq.aynapp.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -23,19 +24,41 @@ class ProjectRepository {
     val dbStorage = Firebase.storage
 
     //Getting all the projects of all the user
-    fun projects(): MutableLiveData<List<Project>> {
-        var mLiveData = MutableLiveData<List<Project>>()
-        projectService.getAllProjects().enqueue(object : Callback<List<Project>> {
-            override fun onResponse(call: Call<List<Project>>, response: Response<List<Project>>) {
-                val list = response.body()
-                mLiveData.postValue(list!!)
-            }
+//    fun projects(): MutableLiveData<List<Project>> {
+//        var mLiveData = MutableLiveData<List<Project>>()
+//        projectService.getAllProjects().enqueue(object : Callback<List<Project>> {
+//            override fun onResponse(call: Call<List<Project>>, response: Response<List<Project>>) {
+//                val list = response.body()
+//                mLiveData.postValue(list!!)
+//            }
+//
+//            override fun onFailure(call: Call<List<Project>>, t: Throwable) {
+//                Log.d("Doc Snippet", "Failed to get user")
+//            }
+//        })
+//        return mLiveData
+//    }
 
-            override fun onFailure(call: Call<List<Project>>, t: Throwable) {
-                Log.d("Doc Snippet", "Failed to get user")
+    fun addProject(projectTitle: String,description: String,image: String): LiveData<Project> {
+        val liveData = MutableLiveData<Project>()
+        val project = hashMapOf(
+            "title" to projectTitle,
+            "description" to description,
+            "image" to image
+        )
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("project").add(project).addOnCompleteListener {
+                if (it.isSuccessful){
+                    Log.d("Doc","Added project successfully")
+//                    val intent = Intent (con, ProfileFragment::class.java)
+//                    startActivity(intent)
+                }else{
+                    Log.d("Doc","Failed to add project")
+                }
+            }.addOnFailureListener {
+                Log.d("Doc","Failed to add project")
             }
-        })
-        return mLiveData
+        return liveData
     }
 
     fun getUserProject(): MutableLiveData<List<Project>> {

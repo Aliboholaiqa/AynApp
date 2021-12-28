@@ -8,8 +8,8 @@ import com.twq.aynapp.repository.ProjectRepository
 
 class HomeViewModel : ViewModel(){
 
-    var projects = ProjectRepository()
-    fun getProjectData(): LiveData<List<Project>>{
-        return projects.projects()
-    }
+//    var projects = ProjectRepository()
+//    fun getProjectData(): LiveData<List<Project>>{
+//        return projects.projects()
+//    }
 }

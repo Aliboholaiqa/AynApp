@@ -16,11 +16,15 @@ class ProfileViewModel : ViewModel(){
     var fb = FirebaseRepository()
 
     fun addProject(title:String,description: String,image: String): LiveData<Project>{
-        return fb.addProject(title,description,image)
+        return projects.addProject(title,description,image)
     }
 
-    fun updateUserProfile(username:String, bio: String,avatar:String,header:String):LiveData<User>{
-        return fb.updateUserProfile(username, bio, avatar, header)
+//    fun updateUserProfile(username:String, bio: String,avatar:String,header:String):LiveData<User>{
+//        return fb.updateUserProfile(username, bio, avatar, header)
+//    }
+
+    fun editUserProfile(username:String, bio: String):LiveData<User>{
+        return fb.editUserProfile(username, bio)
     }
 
     fun uploadImageToFirebase(fileUri: Uri): LiveData<String> {
@@ -35,7 +39,7 @@ class ProfileViewModel : ViewModel(){
     }
 
     fun getUserData(): LiveData<User>{
-        return fb.getUserData()
+        return user.getUserData()
     }
 
     fun getUserProject(): LiveData<List<Project>>{
