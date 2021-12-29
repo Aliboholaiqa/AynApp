@@ -12,7 +12,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.twq.aynapp.model.Project
 import com.twq.aynapp.model.User
 import java.io.File
 import java.util.*
@@ -71,7 +70,7 @@ class FirebaseRepository{
                         Log.d("Doc", "Image Name"+fileName)
                         livedata.postValue(imageUrl)
                         //addImage(imageUrl)
-                        updateAvatar(imageUrl)
+                        //updateAvatar(imageUrl)
                     }
                 }
                 ?.addOnFailureListener{ e ->
@@ -118,7 +117,6 @@ class FirebaseRepository{
             }
         return liveData
     }
-
 }
 
     // Saving an image to firebase storage

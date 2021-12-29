@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             })
-
         }
 
         //Go to registration page
@@ -56,8 +55,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
         }
-
-        // Firebase.auth.signOut()
 
     }
 }

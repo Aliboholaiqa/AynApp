@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
-import com.twq.aynapp.view.saved.SavedFragment
 
 class SavedAdapter (var data:List<Project>): RecyclerView.Adapter<SavedHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedHolder {

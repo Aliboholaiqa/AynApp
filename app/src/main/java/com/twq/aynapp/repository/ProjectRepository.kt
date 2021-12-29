@@ -8,10 +8,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.model.Project
-import com.twq.aynapp.model.User
 import com.twq.aynapp.network.Api
 import com.twq.aynapp.network.ProjectService
-import com.twq.aynapp.network.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,24 +22,26 @@ class ProjectRepository {
     val dbStorage = Firebase.storage
 
     //Getting all the projects of all the user
-//    fun projects(): MutableLiveData<List<Project>> {
+//    fun projects(id:String): MutableLiveData<List<Project>> {
 //        var mLiveData = MutableLiveData<List<Project>>()
-//        projectService.getAllProjects().enqueue(object : Callback<List<Project>> {
+//        projectService.getAllProjects(id).enqueue(object : Callback<List<Project>> {
 //            override fun onResponse(call: Call<List<Project>>, response: Response<List<Project>>) {
 //                val list = response.body()
+//                println(list)
 //                mLiveData.postValue(list!!)
 //            }
 //
 //            override fun onFailure(call: Call<List<Project>>, t: Throwable) {
-//                Log.d("Doc Snippet", "Failed to get user")
+//                Log.d("Doc Snippet", "Failed to get project")
 //            }
 //        })
 //        return mLiveData
 //    }
 
-    fun addProject(projectTitle: String,description: String,image: String): LiveData<Project> {
+    fun addProject(projectTitle: String,description: String,image: String,date: String): LiveData<Project> {
         val liveData = MutableLiveData<Project>()
         val project = hashMapOf(
+            "date" to date,
             "title" to projectTitle,
             "description" to description,
             "image" to image
@@ -68,15 +68,16 @@ class ProjectRepository {
             .addOnCompleteListener { project ->
                 if (project.isSuccessful) {
                     val list = mutableListOf<Project>()
-
                     for (document in project.result!!) {
                         list.add(
                             Project(
-                                "",
+                                document.getString("date")!!,
                                 document.getString("description")!!,
                                 "",
                                 document.getString("image")!!,
-                                document.getString("title")!!
+                                document.getString("title")!!,
+                                ""
+
                             )
                         )
 

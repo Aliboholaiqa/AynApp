@@ -11,6 +11,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileAddProjectBinding
+import java.util.*
 
 class ProfileAddProjectActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileAddProjectBinding
@@ -51,12 +52,16 @@ class ProfileAddProjectActivity : AppCompatActivity() {
                 binding.imageViewAddProjectImage.setImageURI(file_uri)
                 binding.buttonAddProject.setOnClickListener {
                     vm.uploadImageToFirebase(file_uri).observe(this, {
+                        val c = Calendar.getInstance()
+                        val year = c.get(Calendar.YEAR)
+                        val month = c.get(Calendar.MONTH)
+                        val day = c.get(Calendar.DAY_OF_MONTH)
+                        val date = Date(year,month,day)
                         vm.addProject(
                             binding.editTextAddProjectTitle.text.toString(),
-                            binding.editTextAddProjectDescription.text.toString(), it).observe(this,{
+                            binding.editTextAddProjectDescription.text.toString(), it, date.toString()).observe(this,{
                                 finish()
                         })
-
                     }
                     )
                 }

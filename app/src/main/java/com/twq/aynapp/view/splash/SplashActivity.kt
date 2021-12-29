@@ -23,6 +23,8 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             checkState()
+//            val intent = Intent(this, LoginActivity::class.java)
+//            startActivity(intent)
             finish()
         }, 4000) // 3000 is the delayed time in milliseconds.
     }

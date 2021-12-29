@@ -60,10 +60,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             selectImageFromGallery()
         }
 
-        // Changing profile header
-//        binding.buttonHeaderChange.setOnClickListener {
-//            selectImageFromGallery()
-//        }
         binding.buttonEditProfile.setOnClickListener {
             vm.editUserProfile(binding.editTextEditProfileName.text.toString(),
             binding.editTextEditProfileBio.text.toString()).observe(this,{
@@ -72,14 +68,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             })
             finish()
 
-//            vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
-//            binding.editTextEditProfileBio.text.toString(),user.avatar,
-//            binding.imageViewProfileEditHeader.toString()).observe(this,{
-//                binding.editTextEditProfileName.setText(it.username)
-//                binding.editTextEditProfileBio.setText(it.bio)
-//                Picasso.get().load(it.avatar).into(binding.imageViewProfileEditAvatar)
-//            })
-//            finish()
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -105,7 +93,9 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewProfileEditAvatar.setImageURI(file_uri)
-                vm.uploadImageToFirebase(file_uri)
+                vm.uploadImageToFirebase(file_uri).observe(this,{
+                    vm.updateAvatar(it)
+                })
  //               vm.uploadImageToFirebase(file_uri)
 //                binding.buttonEditProfile.setOnClickListener {
 //                    vm.uploadImageToFirebase(file_uri).observe(this,{

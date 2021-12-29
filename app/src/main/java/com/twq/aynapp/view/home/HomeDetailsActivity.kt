@@ -3,7 +3,6 @@ package com.twq.aynapp.view.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
-import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityHomeDetailsBinding
 import com.twq.aynapp.model.Project
 

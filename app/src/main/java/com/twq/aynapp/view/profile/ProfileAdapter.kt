@@ -1,9 +1,11 @@
 package com.twq.aynapp.view.profile
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +30,12 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
 
     override fun onBindViewHolder(holder: ProfileHolder, position: Int) {
         holder.vtitle.text = data[position].projectTitle
-        Picasso.get().load(data[position].image).placeholder(R.drawable.ic_launcher_background).into(holder.vimage)
 
+        if(data[position].image?.isEmpty() == true){
+            Log.d(TAG, "onBindViewHolder: image is empty")
+        }else {
+            Picasso.get().load(data[position].image).into(holder.vimage)
+        }
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
             intent.putExtra("project",data[position])

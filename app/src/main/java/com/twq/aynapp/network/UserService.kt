@@ -5,6 +5,10 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface UserService {
+
+    @GET("users")
+    fun getAllUsers(): Call<List<User>>
+
     @GET("users")
     fun getUserByEmailAndPassword(@Query("email")email:String,
                                      @Query("password")password:String): Call<List<User>>
