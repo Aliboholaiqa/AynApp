@@ -27,9 +27,10 @@ class RegistrationActivity : AppCompatActivity() {
                 binding.editTextEmailRegister.text.toString(),
                 binding.editTextPasswordRegister.text.toString()).observe(this,{
                 if(it){
-                    startActivity(Intent(this, HomeActivity::class.java))
-                }else{
+                    //startActivity(Intent(this, HomeActivity::class.java))
                     Toast.makeText(this, "Unable to register", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this, HomeActivity::class.java))
                 }
             })
         }

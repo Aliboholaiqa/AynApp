@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
-import com.twq.aynapp.view.home.HomeDetailsActivity
+import com.twq.aynapp.view.home.ProjectDetailsActivity
 
 class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileHolder {
@@ -37,7 +37,7 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
             Picasso.get().load(data[position].image).into(holder.vimage)
         }
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
+            val intent = Intent(holder.itemView.context, ProjectDetailsActivity::class.java)
             intent.putExtra("project",data[position])
             holder.itemView.context.startActivity(intent)
         }

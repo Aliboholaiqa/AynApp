@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.home.HomeDetailsActivity"
+            android:name=".view.home.ProjectDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".view.profile.ProfileEditInfoActivity"

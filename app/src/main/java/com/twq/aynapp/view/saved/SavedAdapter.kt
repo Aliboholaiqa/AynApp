@@ -1,6 +1,6 @@
 package com.twq.aynapp.view.saved
 
-import com.twq.aynapp.view.home.HomeDetailsActivity
+import com.twq.aynapp.view.home.ProjectDetailsActivity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +29,7 @@ class SavedAdapter (var data:List<Project>): RecyclerView.Adapter<SavedHolder>()
             //delete
         }
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, HomeDetailsActivity::class.java)
+            val intent = Intent(holder.itemView.context, ProjectDetailsActivity::class.java)
             intent.putExtra("project",data[position])
             holder.itemView.context.startActivity(intent)
         }

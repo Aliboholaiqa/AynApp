@@ -109,7 +109,8 @@ class UserRepository{
 //                                //val sh = SharedPreferenceHelper.saveToken(,id)
                                 Log.d("Doc Snippet", "New user added")
                             } else {
-                                mLiveData.postValue(User("", "", "", "", "", "", "", ""))
+                                mLiveData.postValue(User("", "", "", "",
+                                    "", "", "", ""))
                             }
                         }
 
@@ -136,8 +137,10 @@ class UserRepository{
                 if(user !=null) {
                     liveData.postValue(
                         User(
-                            user.getString("avatar").toString(), user.getString("bio").toString(),
-                            "", "", user.getString("header").toString(), "", "",
+                            user.getString("avatar").toString(),
+                            user.getString("bio").toString(),
+                            "", "", user.getString("header").toString(),
+                            "", "",
                             user.getString("username").toString()
                         )
                     )

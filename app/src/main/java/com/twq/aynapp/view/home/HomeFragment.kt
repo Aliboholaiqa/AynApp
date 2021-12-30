@@ -13,6 +13,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.view.profile.ProfileAdapter
+import com.twq.aynapp.view.profile.ProfileViewModel
 
 class HomeFragment : Fragment() {
     val auth = Firebase.auth
@@ -21,12 +23,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_home, container, false)
-        val vm : HomeViewModel by viewModels()
+        //val vm : HomeViewModel by viewModels()
+        val vm : ProfileViewModel by viewModels()
         val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
 //        vm.getProjectData(auth.uid.toString()).observe(this,{
 //            hRecyclerView.adapter = HomeAdapter(it)
 //        })
+
+        vm.getAllProjects().observe(this,{
+            hRecyclerView.adapter = ProfileAdapter(it)
+        })
 
 
         return v

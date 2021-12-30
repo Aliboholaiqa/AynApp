@@ -17,6 +17,12 @@ interface ProjectService {
 //    @GET("users/{userId}/project")
 //    fun getAllProjects(@Path("userId")userId :String): Call<List<Project>>
 
+    @GET("users/{fb_id}")
+    fun getFbId(@Path("fb_id")fb_id:String): Call<User>
+
+    @GET("users/{id}")
+    fun getId(@Path("id")id:String): Call<User>
+
     @POST("users/{userId}/project")
     fun addProject(@Body project: Project): Call<Project>
 

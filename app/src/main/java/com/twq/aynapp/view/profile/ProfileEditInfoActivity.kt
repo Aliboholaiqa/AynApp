@@ -67,7 +67,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
                 binding.editTextEditProfileBio.setText(it.bio)
             })
             finish()
-
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -96,16 +95,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
                 vm.uploadImageToFirebase(file_uri).observe(this,{
                     vm.updateAvatar(it)
                 })
- //               vm.uploadImageToFirebase(file_uri)
-//                binding.buttonEditProfile.setOnClickListener {
-//                    vm.uploadImageToFirebase(file_uri).observe(this,{
-//                    vm.updateUserProfile(binding.editTextEditProfileName.text.toString(),
-//                        binding.editTextEditProfileBio.text.toString(),it,
-//                        binding.imageViewProfileEditHeader.toString())
-//                })
-//                }
-
-
             }
         }
     }

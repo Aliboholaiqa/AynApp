@@ -56,10 +56,11 @@ class ProfileAddProjectActivity : AppCompatActivity() {
                         val year = c.get(Calendar.YEAR)
                         val month = c.get(Calendar.MONTH)
                         val day = c.get(Calendar.DAY_OF_MONTH)
-                        val date = Date(year,month,day)
+                        val date = ("$day/${month+1}/$year")
+
                         vm.addProject(
                             binding.editTextAddProjectTitle.text.toString(),
-                            binding.editTextAddProjectDescription.text.toString(), it, date.toString()).observe(this,{
+                            binding.editTextAddProjectDescription.text.toString(), it, date).observe(this,{
                                 finish()
                         })
                     }
