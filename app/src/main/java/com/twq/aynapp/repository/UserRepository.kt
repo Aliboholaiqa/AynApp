@@ -27,8 +27,7 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 
 import com.google.android.gms.tasks.OnCompleteListener
-
-
+import com.twq.aynapp.model.Project
 
 
 class UserRepository{
@@ -152,20 +151,32 @@ class UserRepository{
     // Get all users
     fun getAllUsers(): LiveData<List<User>>{
         val liveData = MutableLiveData<List<User>>()
-        db.collection("user").document()
-            .addSnapshotListener { user, error ->
-                if(user !=null) {
-                    liveData.postValue(
-                        listOf(
-                            User(
-                                user.getString("avatar").toString(),
-                                user.getString("bio").toString(),
-                                "", "", user.getString("header").toString(),
-                                "", "",
-                                user.getString("username").toString()
-                            )
-                        )
-                    )
+        db.collection("user").get()
+            .addOnCompleteListener { user ->
+                if(user.isSuccessful) {
+                    val list = mutableListOf<User>()
+                    for(document in user.result!!){
+                        list.add(User(document.getString("avatar")!!,
+                        "",
+                        "",
+                        "",
+                        "",
+                            document.id,
+                        "",
+                        document.getString("username")!!))
+                    }
+                    liveData.postValue(list)
+//                    liveData.postValue(
+//                        listOf(
+//                            User(
+//                                user.getString("avatar").toString(),
+//                                user.getString("bio").toString(),
+//                                "", "", user.getString("header").toString(),
+//                                "", "",
+//                                user.getString("username").toString()
+//                            )
+//                        )
+//                    )
                 }
             }
         return liveData

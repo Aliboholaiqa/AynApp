@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
+import com.twq.aynapp.model.User
 import com.twq.aynapp.view.adapter.SearchAdapter
 
 class SearchFragment : Fragment() {
@@ -22,18 +25,23 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_search, container, false)
-        val username = v.findViewById<TextView>(R.id.textViewSearchUsername)
-        val avatar = v.findViewById<ImageView>(R.id.imageViewSearchAvatar)
+        //val db = FirebaseFirestore.getInstance()
         val vm: SearchViewModel by viewModels()
-// val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
-//        hRecyclerView.layoutManager = LinearLayoutManager(context)
-////        vm.getProjectData(auth.uid.toString()).observe(this,{
-////            hRecyclerView.adapter = HomeAdapter(it)
-////        })
-         val sRecyclerView = v.findViewById<RecyclerView>(R.id.searchRecyclerView)
+        var searchView = v.findViewById<SearchView>(R.id.searchView)
+        val sRecyclerView = v.findViewById<RecyclerView>(R.id.searchRecyclerView)
         sRecyclerView.layoutManager = LinearLayoutManager(context)
         vm.getAllUsers().observe(this,{
             sRecyclerView.adapter = SearchAdapter(it)
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return true
+                }
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    var newData = it.filter {user: User -> user.username?.toLowerCase()!!.contains(p0!!)  } as MutableList<User>
+                    sRecyclerView.adapter = SearchAdapter(newData)
+                    return true
+                }
+            })
         })
 
 
