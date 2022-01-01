@@ -54,42 +54,6 @@ class ProjectRepository {
             .collection("project").add(project).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d("Doc","Added project successfully")
-                    //post project to API
-//
-//                    val reouf = auth.currentUser?.uid.toString()  //fb
-//
-//                    projectService.getId("9").enqueue(object: Callback<User>{
-//                        override fun onResponse(call: Call<User>, response: Response<User>) {
-//
-//                            val projectAPI = Project(date,description,"",image,projectTitle,
-//                            "")
-//
-//                            projectService.addProject(projectAPI).enqueue(object : Callback<Project>{
-//                                override fun onResponse(call: Call<Project>, response: Response<Project>) {
-//                                    if (response.isSuccessful){
-//                                        val newProject = response.body()
-//                                        liveData.postValue(newProject!!)
-//                                        val id = projectAPI.id
-//                                        Log.d("Doc Snippet",id)
-//                                        //val sh = SharedPreferenceHelper.saveToken()
-//                                    }else {
-//                                        liveData.postValue(
-//                                            Project("", "", "", "",
-//                                                "", "")
-//                                        )
-//                                    }
-//                                }
-//                                override fun onFailure(call: Call<Project>, t: Throwable) {
-//                                    Log.d("Doc Snippet", "Failed to add a project")
-//                                }
-//                            })
-//                        }
-//
-//                        override fun onFailure(call: Call<User>, t: Throwable) {
-//
-//                        }
-//
-//                    })
                 }else{
                     Log.d("Doc","Failed to add project")
                 }
@@ -124,35 +88,36 @@ class ProjectRepository {
             }
         // set the id as Project.id
         // to Project(project.id, date,..,..,..,..)
+        // data[position].productid.toString
         Log.d("Doc", mLiveData.toString())
         return mLiveData
     }
 
-    fun getAllProjects(): MutableLiveData<List<Project>> {
-        val mLiveData = MutableLiveData<List<Project>>()
-        db.collection("user").document()
-            .collection("project").get()
-            .addOnCompleteListener { project ->
-                if (project.isSuccessful) {
-                    val list = mutableListOf<Project>()
-                    for (document in project.result!!) {
-                        list.add(
-                            Project(
-                                document.getString("date")!!,
-                                document.getString("description")!!,
-                                "",
-                                document.getString("image")!!,
-                                document.getString("title")!!,
-                                ""
-
-                            )
-                        )
-
-                    }
-                    mLiveData.postValue(list)
-                }
-            }
-        Log.d("Doc", mLiveData.toString())
-        return mLiveData
-    }
+//    fun getAllProjects(): MutableLiveData<List<Project>> {
+//        val mLiveData = MutableLiveData<List<Project>>()
+//        db.collection("user").document()
+//            .collection("project").get()
+//            .addOnCompleteListener { project ->
+//                if (project.isSuccessful) {
+//                    val list = mutableListOf<Project>()
+//                    for (document in project.result!!) {
+//                        list.add(
+//                            Project(
+//                                document.getString("date")!!,
+//                                document.getString("description")!!,
+//                                "",
+//                                document.getString("image")!!,
+//                                document.getString("title")!!,
+//                                ""
+//
+//                            )
+//                        )
+//
+//                    }
+//                    mLiveData.postValue(list)
+//                }
+//            }
+//        Log.d("Doc", mLiveData.toString())
+//        return mLiveData
+//    }
 }

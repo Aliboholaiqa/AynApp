@@ -31,9 +31,9 @@ class HomeFragment : Fragment() {
 //            hRecyclerView.adapter = HomeAdapter(it)
 //        })
 
-        vm.getAllProjects().observe(this,{
-            hRecyclerView.adapter = ProfileAdapter(it)
-        })
+//        vm.getAllProjects().observe(this,{
+//            hRecyclerView.adapter = ProfileAdapter(it)
+//        })
 
 
         return v

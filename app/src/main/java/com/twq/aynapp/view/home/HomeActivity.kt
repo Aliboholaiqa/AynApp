@@ -6,6 +6,7 @@ import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityHomeBinding
 import com.twq.aynapp.view.profile.ProfileFragment
 import com.twq.aynapp.view.saved.SavedFragment
+import com.twq.aynapp.view.search.SearchFragment
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +23,19 @@ class HomeActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,HomeFragment()).commit()
                     true
                 }
+
+                R.id.navSearch ->{
+                    //SearchFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, SearchFragment()).commit()
+                    true
+                }
+
                 R.id.navSaved ->{
                     //SavedFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,SavedFragment()).commit()
                     true
                 }
+
                 R.id.navProfile ->{
                     //ProfileFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,ProfileFragment()).commit()

@@ -23,11 +23,6 @@ class ProfileAdapter (var data:List<Project>): RecyclerView.Adapter<ProfileHolde
         return ProfileHolder(v)
     }
 
-    fun decodeBase64(input: String?): Bitmap? {
-        val decodedBytes = Base64.decode(input, 0)
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-    }
-
     override fun onBindViewHolder(holder: ProfileHolder, position: Int) {
         holder.vtitle.text = data[position].projectTitle
 

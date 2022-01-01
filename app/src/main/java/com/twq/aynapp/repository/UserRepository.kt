@@ -149,6 +149,29 @@ class UserRepository{
         return liveData
     }
 
+    // Get all users
+    fun getAllUsers(): LiveData<List<User>>{
+        val liveData = MutableLiveData<List<User>>()
+        db.collection("user").document()
+            .addSnapshotListener { user, error ->
+                if(user !=null) {
+                    liveData.postValue(
+                        listOf(
+                            User(
+                                user.getString("avatar").toString(),
+                                user.getString("bio").toString(),
+                                "", "", user.getString("header").toString(),
+                                "", "",
+                                user.getString("username").toString()
+                            )
+                        )
+                    )
+                }
+            }
+        return liveData
+    }
+
+    // Sign out
     fun signout(){
          Firebase.auth.signOut()
     }
