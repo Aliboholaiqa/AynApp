@@ -82,42 +82,52 @@ class ProjectRepository {
                             )
                         )
                     }
-
                     mLiveData.postValue(list)
+                    Log.d("Get user projects: ", list.toString())
                 }
             }
         // set the id as Project.id
         // to Project(project.id, date,..,..,..,..)
         // data[position].productid.toString
-        Log.d("Doc", mLiveData.toString())
         return mLiveData
     }
 
-//    fun getAllProjects(): MutableLiveData<List<Project>> {
-//        val mLiveData = MutableLiveData<List<Project>>()
-//        db.collection("user").document()
-//            .collection("project").get()
-//            .addOnCompleteListener { project ->
-//                if (project.isSuccessful) {
-//                    val list = mutableListOf<Project>()
-//                    for (document in project.result!!) {
-//                        list.add(
-//                            Project(
-//                                document.getString("date")!!,
-//                                document.getString("description")!!,
-//                                "",
-//                                document.getString("image")!!,
-//                                document.getString("title")!!,
-//                                ""
-//
-//                            )
-//                        )
-//
-//                    }
-//                    mLiveData.postValue(list)
-//                }
-//            }
-//        Log.d("Doc", mLiveData.toString())
-//        return mLiveData
-//    }
+    fun getAllProjects(): MutableLiveData<List<Project>> {
+        val mLiveData = MutableLiveData<List<Project>>()
+        val list = mutableListOf<Project>()
+        db.collection("user").get().addOnCompleteListener { user ->
+            if (user.isSuccessful){
+                for (documentID in user.result!!){
+                    Log.d("Doc","Document ID is ${documentID.id}")
+                    db.collection("user").document(documentID.id)
+                        .collection("project").get()
+                        .addOnCompleteListener { project ->
+                            if (project.isSuccessful) {
+                                for (document in project.result!!) {
+                                    list.add(
+                                        Project(
+                                            document.getString("date")!!,
+                                            document.getString("description")!!,
+                                            document.id,
+                                            document.getString("image")!!,
+                                            document.getString("title")!!,
+                                            ""
+                                        )
+                                    )
+                                }
+
+                            }
+                        }
+                    Thread{
+                        Thread.sleep(1000)
+                        mLiveData.postValue(list)
+                        Log.d("Doc", list.toString())
+                    }.start()
+
+                }
+
+            }
+            }
+        return mLiveData
+    }
 }

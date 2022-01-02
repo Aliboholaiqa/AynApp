@@ -41,9 +41,6 @@ class ProfileViewModel : ViewModel(){
     fun getUserProject(): LiveData<List<Project>>{
         return projects.getUserProject()
     }
-//    fun getAllProjects(): LiveData<List<Project>>{
-//        return projects.getAllProjects()
-//    }
 
     fun signout(){
         return user.signout()

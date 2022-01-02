@@ -24,12 +24,12 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
         holder.vusername.text = data[position].createdAt
         Picasso.get().load(data[position].image).into(holder.vimage)
 
-        holder.vbuttonSave.setOnClickListener {
-            holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
-            val intent = Intent(holder.itemView.context, SavedFragment::class.java)
-            intent.putExtra("saved",data[position])
-            holder.itemView.context.startActivity(intent)
-        }
+//        holder.vbuttonSave.setOnClickListener {
+//            holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
+//            val intent = Intent(holder.itemView.context, SavedFragment::class.java)
+//            intent.putExtra("saved",data[position])
+//            holder.itemView.context.startActivity(intent)
+//        }
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ProjectDetailsActivity::class.java)
@@ -39,7 +39,6 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
     }
 
     override fun getItemCount(): Int {
-
         return data.size
     }
 

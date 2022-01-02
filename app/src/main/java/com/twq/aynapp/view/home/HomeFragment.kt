@@ -23,17 +23,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_home, container, false)
-        //val vm : HomeViewModel by viewModels()
-        val vm : ProfileViewModel by viewModels()
+        val vm : HomeViewModel by viewModels()
+        //val vm : ProfileViewModel by viewModels()
         val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
-//        vm.getProjectData(auth.uid.toString()).observe(this,{
+//        vm.getUserProject().observe(this,{
 //            hRecyclerView.adapter = HomeAdapter(it)
 //        })
 
-//        vm.getAllProjects().observe(this,{
-//            hRecyclerView.adapter = ProfileAdapter(it)
-//        })
+        vm.getAllProjects().observe(this,{
+            hRecyclerView.adapter = HomeAdapter(it)
+        })
 
 
         return v

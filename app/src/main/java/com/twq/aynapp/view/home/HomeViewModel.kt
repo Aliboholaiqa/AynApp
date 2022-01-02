@@ -7,8 +7,8 @@ import com.twq.aynapp.repository.ProjectRepository
 
 class HomeViewModel : ViewModel(){
 
-//    var projects = ProjectRepository()
-//    fun getProjectData(id:String): LiveData<List<Project>>{
-//        return projects.projects(id)
-//    }
+    var projects = ProjectRepository()
+    fun getAllProjects(): LiveData<List<Project>>{
+        return projects.getAllProjects()
+    }
 }

@@ -166,17 +166,6 @@ class UserRepository{
                         document.getString("username")!!))
                     }
                     liveData.postValue(list)
-//                    liveData.postValue(
-//                        listOf(
-//                            User(
-//                                user.getString("avatar").toString(),
-//                                user.getString("bio").toString(),
-//                                "", "", user.getString("header").toString(),
-//                                "", "",
-//                                user.getString("username").toString()
-//                            )
-//                        )
-//                    )
                 }
             }
         return liveData
