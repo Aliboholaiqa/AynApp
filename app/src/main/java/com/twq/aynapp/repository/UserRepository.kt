@@ -36,27 +36,6 @@ class UserRepository{
     val db = Firebase.firestore
     var userService = Api.getInstance().create(UserService::class.java)
 
-//    fun updateProfile(username: String,id:String,image:String,email:String,bio:String,header:String):MutableLiveData<User>{
-//        val put = User("",bio,email,"",header,"","",username)
-//        val mLiveData = MutableLiveData<User>()
-//        userService.uploadImage(put.id,put).enqueue(object :Callback<User>{
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                if (response.isSuccessful) {
-//                    val updatedPost = response.body()
-//                    mLiveData.postValue(updatedPost!!)
-//                    Log.d("Doc", "Updated $updatedPost")
-//                    Log.d("Doc", "Body ${response.body()}")
-//                    Log.d("Doc", "Message ${response.message()}")
-//                }
-//            }
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                mLiveData.postValue(User("","","","", "","","",""))
-//                Log.d("Doc Snippet", "Failed to upload image")
-//            }
-//        })
-//        return mLiveData
-//    }
-
     // Login
     fun login (email: String,password: String):LiveData<User>{
         val mLiveData = MutableLiveData<User>()
@@ -144,6 +123,26 @@ class UserRepository{
                         )
                     )
                 }
+            }
+        return liveData
+    }
+
+    fun getUserByID(id: String): LiveData<User>{
+        val liveData = MutableLiveData<User>()
+        db.collection("user").document(id)
+            .addSnapshotListener { user, error ->
+                if(user !=null) {
+                    liveData.postValue(
+                        User(
+                            user.getString("avatar").toString(),
+                            user.getString("bio").toString(),
+                            "", "", user.getString("header").toString(),
+                            "", "",
+                            user.getString("username").toString()
+                        )
+                    )
+                }
+                Log.d("ID",liveData.toString())
             }
         return liveData
     }

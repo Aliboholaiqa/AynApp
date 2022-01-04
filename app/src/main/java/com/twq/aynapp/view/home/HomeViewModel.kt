@@ -8,7 +8,13 @@ import com.twq.aynapp.repository.ProjectRepository
 class HomeViewModel : ViewModel(){
 
     var projects = ProjectRepository()
+
     fun getAllProjects(): LiveData<List<Project>>{
         return projects.getAllProjects()
     }
+
+    fun saveProject(projectTitle: String,description: String,image: String,date: String): LiveData<Project> {
+        return projects.saveProject(projectTitle, description, image, date)
+    }
+
 }

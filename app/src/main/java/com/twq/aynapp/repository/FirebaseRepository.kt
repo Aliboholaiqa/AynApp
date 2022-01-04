@@ -22,24 +22,6 @@ class FirebaseRepository{
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-//    fun updateUserProfile(username:String, bio: String,avatar:String,header:String): LiveData<User>{
-//        val livedata = MutableLiveData<User>()
-//            db.collection("user")
-//                .document(auth.currentUser?.uid.toString())
-//                .update(
-//                    mapOf(
-//                        "username" to username,
-//                        "bio" to bio,
-//                        "avatar" to avatar
-//                    )
-//                ).addOnSuccessListener {
-//                    Log.d(ContentValues.TAG, "Profile updated successfully")
-//                }.addOnFailureListener {
-//                    Log.d(ContentValues.TAG, "Update error")
-//                }
-//        return livedata
-//    }
-
     fun editUserProfile(username:String, bio: String): LiveData<User>{
         val livedata = MutableLiveData<User>()
         db.collection("user")
@@ -69,8 +51,6 @@ class FirebaseRepository{
                         Log.d("Doc", "Image Url"+imageUrl)
                         Log.d("Doc", "Image Name"+fileName)
                         livedata.postValue(imageUrl)
-                        //addImage(imageUrl)
-                        //updateAvatar(imageUrl)
                     }
                 }
                 ?.addOnFailureListener{ e ->

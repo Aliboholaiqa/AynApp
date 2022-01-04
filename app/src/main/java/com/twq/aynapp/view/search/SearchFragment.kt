@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.User
-import com.twq.aynapp.view.adapter.SearchAdapter
+import com.twq.aynapp.adapter.SearchAdapter
 
 class SearchFragment : Fragment() {
 
@@ -37,7 +37,7 @@ class SearchFragment : Fragment() {
                     return true
                 }
                 override fun onQueryTextChange(p0: String?): Boolean {
-                    var newData = it.filter {user: User -> user.username?.toLowerCase()!!.contains(p0!!)  } as MutableList<User>
+                    val newData = it.filter { user: User -> user.username?.toLowerCase()!!.contains(p0!!)  } as MutableList<User>
                     sRecyclerView.adapter = SearchAdapter(newData)
                     return true
                 }

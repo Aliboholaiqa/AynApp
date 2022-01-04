@@ -91,10 +91,7 @@ class ProfileFragment : Fragment() {
 
         val pRecyclerView = v.findViewById<RecyclerView>(R.id.pRecyclerView)
         pRecyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-//        vm.getProjectData().observe(this,{
-//            pRecyclerView.adapter = ProfileAdapter(it)
-//        })
-//
+
         vm.getUserProject().observe(this,{
                 pRecyclerView.adapter = ProfileAdapter(it)
         })

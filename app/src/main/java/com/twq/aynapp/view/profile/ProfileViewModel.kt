@@ -26,6 +26,7 @@ class ProfileViewModel : ViewModel(){
     fun uploadImageToFirebase(fileUri: Uri): LiveData<String> {
         return fb.uploadImageToFirebase(fileUri)
     }
+
     fun updateAvatar(imageName: String): LiveData<String>{
         return fb.updateAvatar(imageName)
     }
@@ -37,9 +38,16 @@ class ProfileViewModel : ViewModel(){
     fun getUserData(): LiveData<User>{
         return user.getUserData()
     }
+    fun getUserByID(id: String): LiveData<User>{
+        return user.getUserByID(id)
+    }
 
     fun getUserProject(): LiveData<List<Project>>{
         return projects.getUserProject()
+    }
+
+    fun deleteProject(id: String): LiveData<Project>{
+        return projects.deleteProject(id)
     }
 
     fun signout(){

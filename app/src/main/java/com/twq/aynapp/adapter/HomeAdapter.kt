@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
@@ -24,12 +25,12 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
         holder.vusername.text = data[position].createdAt
         Picasso.get().load(data[position].image).into(holder.vimage)
 
-//        holder.vbuttonSave.setOnClickListener {
-//            holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
-//            val intent = Intent(holder.itemView.context, SavedFragment::class.java)
-//            intent.putExtra("saved",data[position])
-//            holder.itemView.context.startActivity(intent)
-//        }
+        holder.vbuttonSave.setOnClickListener {
+            //holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
+            val intent = Intent(holder.itemView.context, SavedFragment::class.java)
+            intent.putExtra("saved",data[position])
+            //holder.itemView.context.startActivity(intent)
+        }
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ProjectDetailsActivity::class.java)
@@ -49,4 +50,5 @@ class HomeHolder(v: View): RecyclerView.ViewHolder(v){
     var vusername= v.findViewById<TextView>(R.id.textViewUsername)
     var vimage = v.findViewById<ImageView>(R.id.imageViewPost)
     var vbuttonSave = v.findViewById<ImageButton>(R.id.imageButtonSave)
+
 }

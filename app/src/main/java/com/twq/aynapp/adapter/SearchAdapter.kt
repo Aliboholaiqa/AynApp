@@ -1,4 +1,4 @@
-package com.twq.aynapp.view.adapter
+package com.twq.aynapp.adapter
 
 import android.view.LayoutInflater
 import android.view.TextureView

@@ -1,6 +1,8 @@
 package com.twq.aynapp.repository
 
+import android.content.ContentValues.TAG
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
@@ -8,39 +10,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.twq.aynapp.model.Project
-import com.twq.aynapp.model.User
-import com.twq.aynapp.network.Api
-import com.twq.aynapp.network.ProjectService
-import com.twq.aynapp.utility.SharedPreferenceHelper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 
 class ProjectRepository {
-    var projectService = Api.getInstance().create(ProjectService::class.java)
+    //var projectService = Api.getInstance().create(ProjectService::class.java)
     val auth = Firebase.auth
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
-
-    //Getting all the projects of all the user
-//    fun projects(id:String): MutableLiveData<List<Project>> {
-//        var mLiveData = MutableLiveData<List<Project>>()
-//        projectService.getAllProjects(id).enqueue(object : Callback<List<Project>> {
-//            override fun onResponse(call: Call<List<Project>>, response: Response<List<Project>>) {
-//                val list = response.body()
-//                println(list)
-//                mLiveData.postValue(list!!)
-//            }
-//
-//            override fun onFailure(call: Call<List<Project>>, t: Throwable) {
-//                Log.d("Doc Snippet", "Failed to get project")
-//            }
-//        })
-//        return mLiveData
-//    }
-
-
 
     fun addProject(projectTitle: String,description: String,image: String,date: String): LiveData<Project> {
         val liveData = MutableLiveData<Project>()
@@ -48,7 +23,8 @@ class ProjectRepository {
             "date" to date,
             "title" to projectTitle,
             "description" to description,
-            "image" to image
+            "image" to image,
+            "userId" to auth.currentUser?.uid.toString()
         )
         db.collection("user").document(auth.currentUser?.uid.toString())
             .collection("project").add(project).addOnCompleteListener {
@@ -59,6 +35,27 @@ class ProjectRepository {
                 }
             }.addOnFailureListener {
                 Log.d("Doc","Failed to add project")
+            }
+        return liveData
+    }
+
+    fun saveProject(projectTitle: String,description: String,image: String,date: String): LiveData<Project> {
+        val liveData = MutableLiveData<Project>()
+        val project = hashMapOf(
+            "date" to date,
+            "title" to projectTitle,
+            "description" to description,
+            "image" to image
+        )
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("saved").add(project).addOnCompleteListener {
+                if (it.isSuccessful){
+                    Log.d("Doc","Saved project successfully")
+                }else{
+                    Log.d("Doc","Failed to save project")
+                }
+            }.addOnFailureListener {
+                Log.d("Doc","Failure to save project")
             }
         return liveData
     }
@@ -78,7 +75,7 @@ class ProjectRepository {
                                 document.id,
                                 document.getString("image")!!,
                                 document.getString("title")!!,
-                                ""
+                                document.getString("userId")!!
                             )
                         )
                     }
@@ -111,7 +108,7 @@ class ProjectRepository {
                                             document.id,
                                             document.getString("image")!!,
                                             document.getString("title")!!,
-                                            ""
+                                            documentID.id
                                         )
                                     )
                                 }
@@ -127,6 +124,18 @@ class ProjectRepository {
                 }
 
             }
+            }
+        return mLiveData
+    }
+
+    fun deleteProject(id:String): LiveData<Project>{
+        val mLiveData = MutableLiveData<Project>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("project").document(id)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG,"Successfully deleted") }
+            .addOnFailureListener { Log.d(TAG,"Failed to delete ")
             }
         return mLiveData
     }
