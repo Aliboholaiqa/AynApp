@@ -28,8 +28,10 @@ class ProjectDetailsActivity : AppCompatActivity() {
         binding.textViewDescription.text = project.description
         binding.textViewProjectDate.text = project.createdAt
         Picasso.get().load(project.image).into(binding.imageViewDetails)
+
         vmProfile.getUserByID(project.userId).observe(this,{
             binding.textViewDetailsUsername.text = it.username
+            Picasso.get().load(it.avatar).into(binding.imageViewProjectAvatar)
         })
 
         binding.buttonEditProject.setOnClickListener {
