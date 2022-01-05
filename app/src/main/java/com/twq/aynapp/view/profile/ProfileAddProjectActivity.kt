@@ -1,6 +1,7 @@
 package com.twq.aynapp.view.profile
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,19 +51,23 @@ class ProfileAddProjectActivity : AppCompatActivity() {
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewAddProjectImage.setImageURI(file_uri)
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("Please wait...")
+                progressDialog.setMessage("Waiting for the project to be added")
                 binding.buttonAddProject.setOnClickListener {
+                    progressDialog.show()
                     vm.uploadImageToFirebase(file_uri).observe(this, {
                         val c = Calendar.getInstance()
                         val year = c.get(Calendar.YEAR)
                         val month = c.get(Calendar.MONTH)
                         val day = c.get(Calendar.DAY_OF_MONTH)
                         val date = ("$day/${month+1}/$year")
-
                         vm.addProject(
                             binding.editTextAddProjectTitle.text.toString(),
-                            binding.editTextAddProjectDescription.text.toString(), it, date).observe(this,{
-                                finish()
-                        })
+                            binding.editTextAddProjectDescription.text.toString(), it, date)
+                        progressDialog.dismiss()
+                        finish()
+
                     }
                     )
                 }

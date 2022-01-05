@@ -10,14 +10,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Base64
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,12 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
-import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
-import com.twq.aynapp.model.User
-import com.twq.aynapp.view.home.HomeFragment
-import java.io.ByteArrayOutputStream
-import java.io.File
 import java.util.*
 
 class ProfileEditInfoActivity : AppCompatActivity() {

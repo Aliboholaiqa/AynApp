@@ -128,6 +128,17 @@ class ProjectRepository {
         return mLiveData
     }
 
+    fun editProject(id:String, title:String, description: String, image: String): LiveData<Project>{
+        val mLiveData = MutableLiveData<Project>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("project").document(id).update(mapOf(
+                "title" to title,
+                "description" to description,
+                "image" to image
+            ))
+        return mLiveData
+    }
+
     fun deleteProject(id:String): LiveData<Project>{
         val mLiveData = MutableLiveData<Project>()
         db.collection("user").document(auth.currentUser?.uid.toString())

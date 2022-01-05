@@ -1,5 +1,6 @@
 package com.twq.aynapp.view.home
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,8 +31,13 @@ class HomeFragment : Fragment() {
         val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait...")
+        //progressDialog.setMessage("Waiting for information ")
+        progressDialog.show()
         vm.getAllProjects().observe(this,{
             hRecyclerView.adapter = HomeAdapter(it)
+            progressDialog.dismiss()
         })
 
         return v

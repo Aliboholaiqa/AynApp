@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
         val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
 
-        val progressDialog =ProgressDialog(context)
+        val progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait...")
         //progressDialog.setMessage("Waiting for information ")
         progressDialog.show()
