@@ -23,12 +23,20 @@ class ProfileViewModel : ViewModel(){
         return fb.editUserProfile(username, bio)
     }
 
+    fun editProject(id:String, title:String, description: String, date: String): LiveData<Project>{
+        return projects.editProject(id, title, description, date)
+    }
+
     fun uploadImageToFirebase(fileUri: Uri): LiveData<String> {
         return fb.uploadImageToFirebase(fileUri)
     }
 
     fun updateAvatar(imageName: String): LiveData<String>{
         return fb.updateAvatar(imageName)
+    }
+
+    fun updateProjectImg(image: String, id: String): LiveData<String>{
+        return projects.updateProjectImg(image, id)
     }
 
     fun getImageFromFirebase(imageName:String, image: ImageView): LiveData<String>{

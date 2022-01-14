@@ -21,6 +21,7 @@ import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.databinding.ActivityProfileEditInfoBinding
 import java.util.*
+import kotlin.math.asinh
 
 class ProfileEditInfoActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
@@ -48,13 +49,19 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             selectImageFromGallery()
         }
 
+
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Please wait...")
+        progressDialog.setMessage("Waiting for updating user profile")
         binding.buttonEditProfile.setOnClickListener {
+            progressDialog.show()
             vm.editUserProfile(binding.editTextEditProfileName.text.toString(),
             binding.editTextEditProfileBio.text.toString()).observe(this,{
                 binding.editTextEditProfileName.setText(it.username)
                 binding.editTextEditProfileBio.setText(it.bio)
+                progressDialog.dismiss()
+                finish()
             })
-            finish()
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -80,6 +87,7 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewProfileEditAvatar.setImageURI(file_uri)
+
                 vm.uploadImageToFirebase(file_uri).observe(this,{
                     vm.updateAvatar(it)
                 })

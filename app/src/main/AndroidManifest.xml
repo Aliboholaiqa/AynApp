@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AynApp">
         <activity
+            android:name=".view.home.ProjectEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.profile.ProfileAddProjectActivity"
             android:exported="false" />
         <activity
@@ -38,7 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true" />

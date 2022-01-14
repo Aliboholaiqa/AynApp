@@ -39,4 +39,7 @@
     <string name="delete">Delete</string>
     <string name="delete_project">Delete Project</string>
     <string name="do_you_want_to_delete_the_project">Do you want to delete the project?</string>
+    <string name="edit_project">Edit Project</string>
+    <string name="description">Description</string>
+    <string name="edit_image">Edit Image</string>
 </resources>

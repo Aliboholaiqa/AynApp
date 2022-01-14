@@ -39,7 +39,9 @@ class ProjectDetailsActivity : AppCompatActivity() {
         })
 
         binding.buttonEditProject.setOnClickListener {
-            //Intent to edit project page
+            val intent = Intent(this,ProjectEditActivity::class.java)
+            intent.putExtra("project",project)
+            startActivity(intent)
         }
 
         binding.buttonDeleteProject.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.twq.aynapp.repository
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.widget.Toast
@@ -128,15 +129,33 @@ class ProjectRepository {
         return mLiveData
     }
 
-    fun editProject(id:String, title:String, description: String, image: String): LiveData<Project>{
+    fun editProject(id:String, title:String, description: String, date: String): LiveData<Project>{
         val mLiveData = MutableLiveData<Project>()
         db.collection("user").document(auth.currentUser?.uid.toString())
             .collection("project").document(id).update(mapOf(
                 "title" to title,
                 "description" to description,
-                "image" to image
+                "date" to date
+
             ))
         return mLiveData
+    }
+
+    fun updateProjectImg(image: String, id: String): LiveData<String>{
+        val livedata = MutableLiveData<String>()
+        db.collection("user")
+            .document(auth.currentUser?.uid.toString()).collection("project").document(id)
+            .update(
+                mapOf(
+                    "image" to image
+                )
+            ).addOnSuccessListener {
+                livedata.postValue(image)
+                Log.d(ContentValues.TAG, "Profile updated successfully")
+            }.addOnFailureListener {
+                Log.d(ContentValues.TAG, "Update error")
+            }
+        return livedata
     }
 
     fun deleteProject(id:String): LiveData<Project>{
