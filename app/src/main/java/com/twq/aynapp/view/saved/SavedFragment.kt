@@ -23,15 +23,14 @@ class SavedFragment : Fragment() {
         // Inflate the layout for this fragment
         val v =  inflater.inflate(R.layout.fragment_saved, container, false)
         val vm: HomeViewModel by viewModels()
+        val sRecyclerView = v.findViewById<RecyclerView>(R.id.sRecyclerView)
+        sRecyclerView.layoutManager = LinearLayoutManager(context)
 
- //       val saved = activity!!.getIntent().getSerializableExtra("saved") as Project
-        //vm.saveProject(saved.projectTitle,saved.description,saved.image!!,saved.createdAt)
-//
-//        val sRecyclerView = v.findViewById<RecyclerView>(R.id.sRecyclerView)
-//        sRecyclerView.layoutManager = LinearLayoutManager(context)
-//        sRecyclerView.adapter = SavedAdapter(saved)
+        // get all from saved
 
-
+        vm.getSavedProjects().observe(this,{
+            sRecyclerView.adapter = SavedAdapter(it)
+        })
 
         return v
     }

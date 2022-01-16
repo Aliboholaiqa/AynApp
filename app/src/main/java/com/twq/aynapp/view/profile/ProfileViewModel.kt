@@ -11,6 +11,7 @@ import com.twq.aynapp.repository.ProjectRepository
 import com.twq.aynapp.repository.UserRepository
 
 class ProfileViewModel : ViewModel(){
+
     var projects = ProjectRepository()
     var user = UserRepository()
     var fb = FirebaseRepository()
@@ -46,6 +47,7 @@ class ProfileViewModel : ViewModel(){
     fun getUserData(): LiveData<User>{
         return user.getUserData()
     }
+
     fun getUserByID(id: String): LiveData<User>{
         return user.getUserByID(id)
     }
@@ -61,4 +63,5 @@ class ProfileViewModel : ViewModel(){
     fun signout(){
         return user.signout()
     }
+
 }

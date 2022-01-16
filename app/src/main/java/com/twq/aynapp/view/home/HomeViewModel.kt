@@ -17,4 +17,8 @@ class HomeViewModel : ViewModel(){
         return projects.saveProject(projectTitle, description, image, date)
     }
 
+    fun getSavedProjects(): LiveData<List<Project>>{
+        return projects.getSavedProjects()
+    }
+
 }

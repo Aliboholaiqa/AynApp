@@ -61,6 +61,35 @@ class ProjectRepository {
         return liveData
     }
 
+    fun getSavedProjects(): MutableLiveData<List<Project>> {
+        val mLiveData = MutableLiveData<List<Project>>()
+        db.collection("user").document(auth.currentUser?.uid.toString())
+            .collection("saved").get()
+            .addOnCompleteListener { project ->
+                if (project.isSuccessful) {
+                    val list = mutableListOf<Project>()
+                    for (document in project.result!!) {
+                        list.add(
+                            Project(
+                                document.getString("date")!!,
+                                document.getString("description")!!,
+                                document.id,
+                                document.getString("image")!!,
+                                document.getString("title")!!,
+                                document.getString("userId")!!
+                            )
+                        )
+                    }
+                    mLiveData.postValue(list)
+                    Log.d("Get user projects: ", list.toString())
+                }
+            }
+        // set the id as Project.id
+        // to Project(project.id, date,..,..,..,..)
+        // data[position].productid.toString
+        return mLiveData
+    }
+
     fun getUserProject(): MutableLiveData<List<Project>> {
         val mLiveData = MutableLiveData<List<Project>>()
         db.collection("user").document(auth.currentUser?.uid.toString())

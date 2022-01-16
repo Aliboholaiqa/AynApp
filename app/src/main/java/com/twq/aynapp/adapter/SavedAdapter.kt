@@ -25,8 +25,8 @@ class SavedAdapter (var data:List<Project>): RecyclerView.Adapter<SavedHolder>()
         Picasso.get().load(data[position].image).into(holder.vimage)
 
         holder.vbuttonSave.setOnClickListener {
-            holder.vbuttonSave.setImageResource(R.drawable.ic_bookmark)
             //delete
+
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ProjectDetailsActivity::class.java)
