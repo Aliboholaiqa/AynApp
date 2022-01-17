@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">عين</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="password">كلمة السر</string>
+    <string name="login_by_google">سجل عن طريق قوقل</string>
+    <string name="name">الإسم</string>
+    <string name="registration">التسجيل</string>
+    <string name="register">سجل</string>
+    <string name="return_to_login">العودة إلى تسجيل الدخول</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="saved">حفظ</string>
+    <string name="profile">ملف المستخدم</string>
+    <string name="project_title">عنوان المشروع</string>
+    <string name="confirm_password">تأكيد كلمة السر</string>
+    <string name="confirm_changes">تأكيد التغييرات</string>
+    <string name="edit_profile">تعديل ملف المستخدم</string>
+    <string name="change_image">تعديل الصورة</string>
+    <string name="bio">الوصف</string>
+    <string name="add_project">إضافة مشروع</string>
+    <string name="descriptiontext">الوصف:</string>
+    <string name="add_a_project">اضف مشروع</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="search">البحث</string>
+    <string name="follow">الإضافه</string>
+    <string name="edit">التعديل</string>
+    <string name="Lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="delete">حذف</string>
+    <string name="delete_project">حذف المشروع</string>
+    <string name="do_you_want_to_delete_the_project">هل تريد حذف المشروع؟</string>
+    <string name="edit_project">تعديل المشروع</string>
+    <string name="description">الوصف</string>
+    <string name="edit_image">تعديل الصورة</string>
+
+</resources>
