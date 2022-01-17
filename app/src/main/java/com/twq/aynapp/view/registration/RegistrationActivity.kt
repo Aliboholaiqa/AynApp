@@ -10,6 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.twq.aynapp.databinding.ActivityRegistrationBinding
+import com.twq.aynapp.utility.SharedPreferenceHelper
 import com.twq.aynapp.view.home.HomeActivity
 import com.twq.aynapp.view.login.LoginActivity
 
@@ -27,7 +28,6 @@ class RegistrationActivity : AppCompatActivity() {
                 binding.editTextEmailRegister.text.toString(),
                 binding.editTextPasswordRegister.text.toString()).observe(this,{
                 if(it){
-                    //startActivity(Intent(this, HomeActivity::class.java))
                     Toast.makeText(this, "Unable to register", Toast.LENGTH_SHORT).show()
                 }else{
                     startActivity(Intent(this, HomeActivity::class.java))

@@ -11,7 +11,7 @@ class SharedPreferenceHelper {
         }
         fun getUserID(context: Context):String{
             val pref = context.getSharedPreferences("Myref",Context.MODE_PRIVATE)
-            var id =pref.getString("id","null")
+            val id =pref.getString("id","null")
             return id!!
         }
     }
