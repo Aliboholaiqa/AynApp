@@ -113,9 +113,6 @@ class ProjectRepository {
                     Log.d("Get user projects: ", list.toString())
                 }
             }
-        // set the id as Project.id
-        // to Project(project.id, date,..,..,..,..)
-        // data[position].productid.toString
         return mLiveData
     }
 

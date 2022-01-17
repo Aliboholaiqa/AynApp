@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.Constants.MessagePayloadKeys.SENDER_ID
+import com.google.firebase.messaging.ktx.messaging
+import com.google.firebase.messaging.ktx.remoteMessage
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
@@ -43,6 +46,12 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
             db.collection("user").document(auth.currentUser?.uid.toString())
                 .collection("saved").add(project).addOnCompleteListener {
                     if (it.isSuccessful){
+                        val fm = Firebase.messaging
+                        fm.send(remoteMessage("$SENDER_ID@fcm.googleapis.com") {
+                            setMessageId("messageId.toString()")
+                            addData("my_message", "Hello World")
+                            addData("my_action", "SAY_HELLO")
+                        })
                         Log.d("Doc","Saved project successfully")
                     }else{
                         Log.d("Doc","Failed to save project")
