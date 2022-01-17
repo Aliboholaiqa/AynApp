@@ -90,9 +90,9 @@ class ProjectRepository {
         return mLiveData
     }
 
-    fun getUserProject(): MutableLiveData<List<Project>> {
+    fun getUserProject(id:String): MutableLiveData<List<Project>> {
         val mLiveData = MutableLiveData<List<Project>>()
-        db.collection("user").document(auth.currentUser?.uid.toString())
+        db.collection("user").document(id)
             .collection("project").get()
             .addOnCompleteListener { project ->
                 if (project.isSuccessful) {

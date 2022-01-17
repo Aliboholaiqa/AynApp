@@ -52,8 +52,8 @@ class ProfileViewModel : ViewModel(){
         return user.getUserByID(id)
     }
 
-    fun getUserProject(): LiveData<List<Project>>{
-        return projects.getUserProject()
+    fun getUserProject(id: String): LiveData<List<Project>>{
+        return projects.getUserProject(id)
     }
 
     fun deleteProject(id: String): LiveData<Project>{

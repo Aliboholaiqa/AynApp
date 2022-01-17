@@ -13,7 +13,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/project_title"
-        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +91,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatar"
-        android:layout_width="410dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:cardBackgroundColor="@color/white"
@@ -103,7 +102,7 @@
 
         <ImageView
             android:id="@+id/imageViewDetails"
-            android:layout_width="410dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             tools:srcCompat="@tools:sample/avatars" />
@@ -137,7 +136,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/delete"
         android:textColor="#FD0202"

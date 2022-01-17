@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.*
+import com.twq.aynapp.utility.CheckState
 import com.twq.aynapp.view.home.HomeActivity
 import com.twq.aynapp.view.home.HomeAdapter
 import com.twq.aynapp.view.home.HomeViewModel
@@ -62,6 +64,7 @@ class ProfileFragment : Fragment() {
         })
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
+        val buttonAdd = v.findViewById<Button>(R.id.floatingActionButton)
 
         // spinner with edit profile and sign out
         buttonProfileEdit.setOnClickListener {
@@ -83,7 +86,6 @@ class ProfileFragment : Fragment() {
             profileMenu.show()
         }
 
-        val buttonAdd = v.findViewById<Button>(R.id.floatingActionButton)
         buttonAdd.setOnClickListener {
             val intent = Intent (context, ProfileAddProjectActivity::class.java)
             startActivity(intent)
@@ -92,7 +94,7 @@ class ProfileFragment : Fragment() {
         val pRecyclerView = v.findViewById<RecyclerView>(R.id.pRecyclerView)
         pRecyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
 
-        vm.getUserProject().observe(this,{
+        vm.getUserProject(auth.currentUser?.uid.toString()).observe(this,{
                 pRecyclerView.adapter = ProfileAdapter(it)
         })
 

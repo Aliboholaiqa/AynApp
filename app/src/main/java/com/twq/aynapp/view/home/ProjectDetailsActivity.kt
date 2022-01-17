@@ -7,16 +7,17 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProjectDetailsBinding
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.utility.CheckState
 import com.twq.aynapp.view.profile.ProfileViewModel
 import java.util.*
 
@@ -37,6 +38,18 @@ class ProjectDetailsActivity : AppCompatActivity() {
             binding.textViewDetailsUsername.text = it.username
             Picasso.get().load(it.avatar).into(binding.imageViewProjectAvatar)
         })
+
+        if (CheckState().checkState(project.userId)){
+            binding.buttonEditProject.isVisible = true
+            binding.buttonDeleteProject.isVisible = true
+        }else{
+            binding.buttonEditProject.isVisible = false
+            binding.buttonDeleteProject.isVisible = false
+        }
+
+        binding.imageViewBack.setOnClickListener {
+            finish()
+        }
 
         binding.buttonEditProject.setOnClickListener {
             val intent = Intent(this,ProjectEditActivity::class.java)

@@ -148,27 +148,51 @@ class UserRepository{
     }
 
     // Get all users
-    fun getAllUsers(): LiveData<List<User>>{
+    fun getAllUsers(): LiveData<List<User>> {
         val liveData = MutableLiveData<List<User>>()
-        db.collection("user").get()
-            .addOnCompleteListener { user ->
-                if(user.isSuccessful) {
-                    val list = mutableListOf<User>()
-                    for(document in user.result!!){
-                        list.add(User(document.getString("avatar")!!,
-                        "",
-                        "",
-                        "",
-                        "",
-                            document.id,
-                        "",
-                        document.getString("username")!!))
-                    }
-                    liveData.postValue(list)
-                }
+        db.collection("user").addSnapshotListener { user, error ->
+            val list = mutableListOf<User>()
+            if (user != null) {
+                for (document in user)
+                    list.add(
+                        User
+                            (document.getString("avatar")!!,
+                            document.getString("bio")!!,
+                            "",
+                            "",
+                            "",
+                                document.id,
+                            "",
+                            document.getString("username")!!
+                        )
+                    )
             }
+            liveData.postValue(list)
+        }
         return liveData
     }
+
+//    fun getAllUsers(): LiveData<List<User>>{
+//        val liveData = MutableLiveData<List<User>>()
+//        db.collection("user").get()
+//            .addOnCompleteListener { user ->
+//                if(user.isSuccessful) {
+//                    val list = mutableListOf<User>()
+//                    for(document in user.result!!){
+//                        list.add(User(document.getString("avatar")!!,
+//                        document.getString("bio")!!,
+//                        "",
+//                        "",
+//                        "",
+//                            document.id,
+//                        "",
+//                        document.getString("username")!!))
+//                    }
+//                    liveData.postValue(list)
+//                }
+//            }
+//        return liveData
+//    }
 
     // Sign out
     fun signout(){
