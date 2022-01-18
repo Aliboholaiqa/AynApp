@@ -21,11 +21,15 @@ class ProfileForOtherUsers : AppCompatActivity() {
         val binding = ActivityProfileForOtherUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val vm : ProfileViewModel by viewModels()
-        val auth = Firebase.auth
 
         //Getting user info
         val user = intent.getSerializableExtra("profile") as User
+        var userID =intent.getStringExtra("fb_id")
 
+        if (userID==null)
+            userID=user.fb_id
+
+        println("////////"+user.fb_id)
         binding.textViewOtherProfileUsername.text = user.username
         binding.textViewOtherProfileBio.text = user.bio
         Picasso.get().load(user.avatar).into(binding.imageViewOtherProfileAvatar)
@@ -38,7 +42,7 @@ class ProfileForOtherUsers : AppCompatActivity() {
         val oRecyclerView = findViewById<RecyclerView>(R.id.oRecyclerView)
         oRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        vm.getUserProject(user.id).observe(this,{
+        vm.getUserProject(userID).observe(this,{
             oRecyclerView.adapter = ProfileAdapter(it)
             progressDialog.dismiss()
         })

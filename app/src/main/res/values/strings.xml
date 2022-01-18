@@ -33,4 +33,7 @@
     <string name="edit_project">Edit Project</string>
     <string name="description">Description</string>
     <string name="edit_image">Edit Image</string>
+    <string name="Arabic">عربي</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="add_image">Add Image</string>
 </resources>

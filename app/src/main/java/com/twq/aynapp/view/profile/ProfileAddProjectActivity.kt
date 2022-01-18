@@ -17,7 +17,7 @@ import java.util.*
 class ProfileAddProjectActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileAddProjectBinding
     val vm: ProfileViewModel by viewModels()
-
+    var img = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileAddProjectBinding.inflate(layoutInflater)
@@ -28,6 +28,23 @@ class ProfileAddProjectActivity : AppCompatActivity() {
         }
 
         binding.buttonCancelAdding.setOnClickListener {
+            finish()
+        }
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val date = ("$day/${month + 1}/$year")
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Please wait...")
+        progressDialog.setMessage("Waiting for the project to be added")
+        binding.buttonAddProject.setOnClickListener {
+            progressDialog.show()
+            vm.addProject(
+                binding.editTextAddProjectTitle.text.toString(),
+                binding.editTextAddProjectDescription.text.toString(), img, date)
+            progressDialog.dismiss()
             finish()
         }
    }
@@ -51,26 +68,9 @@ class ProfileAddProjectActivity : AppCompatActivity() {
             val file_uri = data?.data
             if (file_uri != null) {
                 binding.imageViewAddProjectImage.setImageURI(file_uri)
-                val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("Please wait...")
-                progressDialog.setMessage("Waiting for the project to be added")
-                binding.buttonAddProject.setOnClickListener {
-                    progressDialog.show()
-                    vm.uploadImageToFirebase(file_uri).observe(this, {
-                        val c = Calendar.getInstance()
-                        val year = c.get(Calendar.YEAR)
-                        val month = c.get(Calendar.MONTH)
-                        val day = c.get(Calendar.DAY_OF_MONTH)
-                        val date = ("$day/${month+1}/$year")
-                        vm.addProject(
-                            binding.editTextAddProjectTitle.text.toString(),
-                            binding.editTextAddProjectDescription.text.toString(), it, date)
-                        progressDialog.dismiss()
-                        finish()
-
-                    }
-                    )
-                }
+                vm.uploadImageToFirebase(file_uri).observe(this, {
+                    img = it
+                })
             }
         }
     }

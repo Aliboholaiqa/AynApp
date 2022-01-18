@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityLoginBinding
+import com.twq.aynapp.utility.SharedPreferenceHelper
 import com.twq.aynapp.view.home.HomeActivity
 import com.twq.aynapp.view.registration.RegistrationActivity
 
@@ -33,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
                 if (it) {
                     Log.w(TAG, "Login:success")
                     val intent = Intent(this, HomeActivity::class.java)
+                    SharedPreferenceHelper.saveToken(this,auth.currentUser!!.uid)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.

@@ -17,7 +17,9 @@ import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityProjectDetailsBinding
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.model.User
 import com.twq.aynapp.utility.CheckState
+import com.twq.aynapp.view.profile.ProfileForOtherUsers
 import com.twq.aynapp.view.profile.ProfileViewModel
 import java.util.*
 
@@ -37,6 +39,15 @@ class ProjectDetailsActivity : AppCompatActivity() {
         vmProfile.getUserByID(project.userId).observe(this,{
             binding.textViewDetailsUsername.text = it.username
             Picasso.get().load(it.avatar).into(binding.imageViewProjectAvatar)
+            val user = it
+            println("/////////$user")
+            println("/////////${project.userId}")
+            binding.textViewDetailsUsername.setOnClickListener {
+                val intent = Intent(this,ProfileForOtherUsers::class.java)
+                intent.putExtra("profile", user)
+                intent.putExtra("fb_id",project.userId)
+                startActivity(intent)
+            }
         })
 
         if (CheckState().checkState(project.userId)){

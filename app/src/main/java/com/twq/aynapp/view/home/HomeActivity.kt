@@ -1,9 +1,11 @@
 package com.twq.aynapp.view.home
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.twq.aynapp.R
 import com.twq.aynapp.databinding.ActivityHomeBinding
+import com.twq.aynapp.utility.SharedPreferenceHelper
 import com.twq.aynapp.view.profile.ProfileFragment
 import com.twq.aynapp.view.saved.SavedFragment
 import com.twq.aynapp.view.search.SearchFragment
@@ -15,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
         val binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        SharedPreferenceHelper.getUserID(this)
         //Navigation view listener
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {  item ->
             when(item.itemId){

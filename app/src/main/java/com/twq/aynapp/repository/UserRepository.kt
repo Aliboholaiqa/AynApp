@@ -117,7 +117,7 @@ class UserRepository{
                         User(
                             user.getString("avatar").toString(),
                             user.getString("bio").toString(),
-                            "", "", user.getString("header").toString(),
+                            "", user.getString("fb_id").toString(), user.getString("header").toString(),
                             "", "",
                             user.getString("username").toString()
                         )
@@ -136,7 +136,7 @@ class UserRepository{
                         User(
                             user.getString("avatar").toString(),
                             user.getString("bio").toString(),
-                            "", "", user.getString("header").toString(),
+                            "", user.getString("fb_id").toString(), user.getString("header").toString(),
                             "", "",
                             user.getString("username").toString()
                         )
@@ -159,7 +159,7 @@ class UserRepository{
                             (document.getString("avatar")!!,
                             document.getString("bio")!!,
                             "",
-                            "",
+                            document.getString("fb_id")!!,
                             "",
                                 document.id,
                             "",
@@ -171,28 +171,6 @@ class UserRepository{
         }
         return liveData
     }
-
-//    fun getAllUsers(): LiveData<List<User>>{
-//        val liveData = MutableLiveData<List<User>>()
-//        db.collection("user").get()
-//            .addOnCompleteListener { user ->
-//                if(user.isSuccessful) {
-//                    val list = mutableListOf<User>()
-//                    for(document in user.result!!){
-//                        list.add(User(document.getString("avatar")!!,
-//                        document.getString("bio")!!,
-//                        "",
-//                        "",
-//                        "",
-//                            document.id,
-//                        "",
-//                        document.getString("username")!!))
-//                    }
-//                    liveData.postValue(list)
-//                }
-//            }
-//        return liveData
-//    }
 
     // Sign out
     fun signout(){

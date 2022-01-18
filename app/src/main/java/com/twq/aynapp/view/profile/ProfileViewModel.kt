@@ -20,8 +20,8 @@ class ProfileViewModel : ViewModel(){
         return projects.addProject(title,description,image,creationDate)
     }
 
-    fun editUserProfile(username:String, bio: String):LiveData<User>{
-        return fb.editUserProfile(username, bio)
+    fun editUserProfile(username:String, bio: String, image: String, header: String):LiveData<User>{
+        return fb.editUserProfile(username, bio, image, header)
     }
 
     fun editProject(id:String, title:String, description: String, date: String): LiveData<Project>{
@@ -30,10 +30,6 @@ class ProfileViewModel : ViewModel(){
 
     fun uploadImageToFirebase(fileUri: Uri): LiveData<String> {
         return fb.uploadImageToFirebase(fileUri)
-    }
-
-    fun updateAvatar(imageName: String): LiveData<String>{
-        return fb.updateAvatar(imageName)
     }
 
     fun updateProjectImg(image: String, id: String): LiveData<String>{

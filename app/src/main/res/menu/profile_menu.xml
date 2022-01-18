@@ -4,6 +4,14 @@
         android:id="@+id/editProfileItem"
         android:title="@string/edit_profile" />
     <item
+        android:id="@+id/nightMode"
+        android:title="@string/night_mode" />
+
+    <item
+        android:id="@+id/changeLanguage"
+        android:title="@string/Arabic" />
+
+    <item
         android:id="@+id/signOutItem"
         android:title="@string/sign_out" />
 </menu>

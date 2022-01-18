@@ -64,11 +64,10 @@ class ProjectRepository {
     fun getSavedProjects(): MutableLiveData<List<Project>> {
         val mLiveData = MutableLiveData<List<Project>>()
         db.collection("user").document(auth.currentUser?.uid.toString())
-            .collection("saved").get()
-            .addOnCompleteListener { project ->
-                if (project.isSuccessful) {
+            .collection("saved").addSnapshotListener { project, error ->
+                if (project != null) {
                     val list = mutableListOf<Project>()
-                    for (document in project.result!!) {
+                    for (document in project) {
                         list.add(
                             Project(
                                 document.getString("date")!!,
@@ -84,20 +83,16 @@ class ProjectRepository {
                     Log.d("Get user projects: ", list.toString())
                 }
             }
-        // set the id as Project.id
-        // to Project(project.id, date,..,..,..,..)
-        // data[position].productid.toString
         return mLiveData
     }
 
     fun getUserProject(id:String): MutableLiveData<List<Project>> {
         val mLiveData = MutableLiveData<List<Project>>()
         db.collection("user").document(id)
-            .collection("project").get()
-            .addOnCompleteListener { project ->
-                if (project.isSuccessful) {
+            .collection("project").addSnapshotListener { project, error ->
+                if (project !=null) {
                     val list = mutableListOf<Project>()
-                    for (document in project.result!!) {
+                    for (document in project) {
                         list.add(
                             Project(
                                 document.getString("date")!!,

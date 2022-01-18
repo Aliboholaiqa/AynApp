@@ -19,7 +19,6 @@ class SavedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         val v =  inflater.inflate(R.layout.fragment_saved, container, false)
         val vm: HomeViewModel by viewModels()
@@ -27,7 +26,6 @@ class SavedFragment : Fragment() {
         sRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // get all from saved
-
         vm.getSavedProjects().observe(this,{
             sRecyclerView.adapter = SavedAdapter(it)
         })

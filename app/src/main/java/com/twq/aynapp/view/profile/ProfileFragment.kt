@@ -51,6 +51,7 @@ class ProfileFragment : Fragment() {
         val username = v.findViewById<TextView>(R.id.textViewProfileUsername)
         val bio = v.findViewById<TextView>(R.id.textViewProfileBio)
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
+        val header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
         val progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait...")
@@ -60,6 +61,8 @@ class ProfileFragment : Fragment() {
             username.text = it.username
             bio.text = it.bio
             Picasso.get().load(it.avatar).into(avatar)
+            Picasso.get().load(it.header).into(header)
+
             progressDialog.dismiss()
         })
 

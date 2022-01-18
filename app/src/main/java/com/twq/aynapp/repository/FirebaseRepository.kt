@@ -17,19 +17,20 @@ import java.io.File
 import java.util.*
 
 class FirebaseRepository{
-
     val auth = Firebase.auth
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-    fun editUserProfile(username:String, bio: String): LiveData<User>{
+    fun editUserProfile(username:String, bio: String, image:String, header: String): LiveData<User>{
         val livedata = MutableLiveData<User>()
         db.collection("user")
             .document(auth.currentUser?.uid.toString())
             .update(
                 mapOf(
                     "username" to username,
-                    "bio" to bio
+                    "bio" to bio,
+                    "avatar" to image,
+                    "header" to header
                 )
             ).addOnSuccessListener {
                 Log.d(ContentValues.TAG, "Profile updated successfully")
@@ -60,23 +61,6 @@ class FirebaseRepository{
         return livedata
     }
 
-    fun updateAvatar(imageName: String): LiveData<String>{
-        val livedata = MutableLiveData<String>()
-        db.collection("user")
-            .document(auth.currentUser?.uid.toString())
-            .update(
-                mapOf(
-                    "avatar" to imageName
-                )
-            ).addOnSuccessListener {
-                livedata.postValue(imageName)
-                Log.d(ContentValues.TAG, "Profile updated successfully")
-            }.addOnFailureListener {
-                Log.d(ContentValues.TAG, "Update error")
-            }
-        return livedata
-    }
-
     fun getImageFromFirebase(imageName: String,image: ImageView): LiveData<String> {
         val liveData = MutableLiveData<String>()
         db.collection("user").document(auth.currentUser?.uid.toString())
@@ -99,27 +83,4 @@ class FirebaseRepository{
     }
 }
 
-    // Saving an image to firebase storage
-//    fun setImageInStorage(imgUri: Uri): LiveData<String> {
-//        dbStorage = Firebase.storage
-//        val filename = UUID.randomUUID().toString()+".jpg"
-//        val liveDataImage = MutableLiveData<String>()
-//        val ref = dbStorage.reference.child(Firebase.auth.uid.toString()).child(filename)
-//        val uploadTask = ref.putFile(imgUri)
-//        uploadTask.continueWithTask { task ->
-//            if (!task.isSuccessful){
-//                Log.d(ContentValues.TAG,"Not able to upload image")
-//            }
-//            ref.downloadUrl
-//        }.addOnCompleteListener { task ->
-//            if (task.isSuccessful){
-//                val downloadUri = task.result
-//                Log.d(ContentValues.TAG,downloadUri.toString())
-//                liveDataImage.postValue(downloadUri.toString())
-//            }
-//        }.addOnFailureListener {
-//            Log.d(ContentValues.TAG,"Not able to upload image")
-//        }
-//        return liveDataImage
-//    }
 

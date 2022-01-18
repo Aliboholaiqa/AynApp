@@ -28,6 +28,8 @@ class ProfileEditInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileEditInfoBinding
     lateinit var db: FirebaseFirestore
     lateinit var dbStorage: FirebaseStorage
+    var img: String? = null
+    var header: String? = null
     val vm: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,29 +41,45 @@ class ProfileEditInfoActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         dbStorage = Firebase.storage
 
-        vm.getUserData().observe(this,{
+        vm.getUserData().observe(this, {
             binding.editTextEditProfileName.setText(it.username)
             binding.editTextEditProfileBio.setText(it.bio)
+            img = it.avatar
+            header = it.header
             Picasso.get().load(it.avatar).into(binding.imageViewProfileEditAvatar)
+            Picasso.get().load(it.header).into(binding.imageViewProfileEditHeader)
         })
+
         // Changing profile avatar
         binding.buttonChangeAvatarImage.setOnClickListener {
-            selectImageFromGallery()
+            selectImageFromGallery(1)
         }
 
+        // Changing profile header
+        binding.buttonHeaderChange.setOnClickListener {
+            selectImageFromGallery(2)
+        }
 
+        // Progress dialog
         val progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait...")
-        progressDialog.setMessage("Waiting for updating user profile")
+        progressDialog.setMessage("Updating user profile")
+
+        // Edit profile
         binding.buttonEditProfile.setOnClickListener {
             progressDialog.show()
-            vm.editUserProfile(binding.editTextEditProfileName.text.toString(),
-            binding.editTextEditProfileBio.text.toString()).observe(this,{
+            vm.editUserProfile(
+                binding.editTextEditProfileName.text.toString(),
+                binding.editTextEditProfileBio.text.toString(), img!!,
+                header!!
+            ).observe(this, {
                 binding.editTextEditProfileName.setText(it.username)
                 binding.editTextEditProfileBio.setText(it.bio)
-                progressDialog.dismiss()
-                finish()
+                Picasso.get().load(it.avatar).into(binding.imageViewProfileEditAvatar)
+                Picasso.get().load(it.header).into(binding.imageViewProfileEditHeader)
             })
+            progressDialog.dismiss()
+            finish()
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -70,28 +88,43 @@ class ProfileEditInfoActivity : AppCompatActivity() {
     }
 
     //image
-    private fun selectImageFromGallery() {
+    private fun selectImageFromGallery(requestCode:Int) {
         ImagePicker.with(this)
-                .crop()                    //Crop image(Optional), Check Customization for more option
-                .compress(1024) //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(
-                    1080,
-                    1080
-                )    //Final image resolution will be less than 1080 x 1080(Optional)
-                .start()
+
+            .crop()                    //Crop image(Optional), Check Customization for more option
+            .compress(1024) //Final image size will be less than 1 MB(Optional)
+            .maxResultSize(
+                1080,
+                1080
+            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            .start(requestCode)
     }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
+        //if (resultCode == Activity.RESULT_OK) {
             // Get the Uri of data
-            val file_uri = data?.data
-            if (file_uri != null) {
-                binding.imageViewProfileEditAvatar.setImageURI(file_uri)
+            if (requestCode == 1) { // avatar request code
+                val file_uri = data?.data
+                if (file_uri != null) {
+                    binding.imageViewProfileEditAvatar.setImageURI(file_uri)
+                    vm.uploadImageToFirebase(file_uri).observe(this, {
+                        img = it
+                    })
+                }
+            } else if (requestCode == 2){ // //cover request code
+                val file_uri = data?.data
+                if (file_uri != null) {
+                    binding.imageViewProfileEditHeader.setImageURI(file_uri)
+                    vm.uploadImageToFirebase(file_uri).observe(this, {
+                        header = it
+                    })
+                }
 
-                vm.uploadImageToFirebase(file_uri).observe(this,{
-                    vm.updateAvatar(it)
-                })
+
             }
-        }
+       // }
     }
 }
+

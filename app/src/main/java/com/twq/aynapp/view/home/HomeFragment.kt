@@ -1,6 +1,7 @@
 package com.twq.aynapp.view.home
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.twq.aynapp.R
 import com.twq.aynapp.model.Project
+import com.twq.aynapp.utility.SharedPreferenceHelper
 import com.twq.aynapp.view.profile.ProfileAdapter
 import com.twq.aynapp.view.profile.ProfileViewModel
 import java.io.Serializable
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
         val vm : HomeViewModel by viewModels()
         val hRecyclerView = v.findViewById<RecyclerView>(R.id.hRecyclerView)
         hRecyclerView.layoutManager = LinearLayoutManager(context)
+
 
         val progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait...")

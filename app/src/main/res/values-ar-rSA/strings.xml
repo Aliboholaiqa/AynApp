@@ -34,5 +34,8 @@
     <string name="edit_project">تعديل المشروع</string>
     <string name="description">الوصف</string>
     <string name="edit_image">تعديل الصورة</string>
+    <string name="Arabic">ِEnglish</string>
+    <string name="night_mode">الوضع الليلي</string>
+    <string name="add_image">Add Image</string>
 
 </resources>
