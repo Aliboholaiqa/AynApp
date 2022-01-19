@@ -45,7 +45,8 @@ class UserRepository{
                     val user = auth.currentUser
                     Log.d(ContentValues.TAG,"User is $user")
                     Log.d(ContentValues.TAG, "signIn:success")
-                    mLiveData.postValue(User("","",email,"","","",password,""))
+                    mLiveData.postValue(User("","",email,"","",
+                        "",password,""))
                 } else {
 
                     // If sign in fails, display a message to the user.
@@ -105,7 +106,27 @@ class UserRepository{
         return mLiveData
     }
 
-    // Get user data from firebase
+    // Edit user profile
+    fun editUserProfile(username:String, bio: String, image:String, header: String): LiveData<User>{
+        val livedata = MutableLiveData<User>()
+        db.collection("user")
+            .document(auth.currentUser?.uid.toString())
+            .update(
+                mapOf(
+                    "username" to username,
+                    "bio" to bio,
+                    "avatar" to image,
+                    "header" to header
+                )
+            ).addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Profile updated successfully")
+            }.addOnFailureListener {
+                Log.d(ContentValues.TAG, "Update error")
+            }
+        return livedata
+    }
+
+    // Get current user data
     fun getUserData(): LiveData<User>{
         val liveData = MutableLiveData<User>()
         db.collection("user").document(auth.currentUser?.uid.toString())
@@ -115,7 +136,8 @@ class UserRepository{
                         User(
                             user.getString("avatar").toString(),
                             user.getString("bio").toString(),
-                            "", user.getString("fb_id").toString(), user.getString("header").toString(),
+                            "", user.getString("fb_id").toString(),
+                            user.getString("header").toString(),
                             "", "",
                             user.getString("username").toString()
                         )
@@ -125,6 +147,7 @@ class UserRepository{
         return liveData
     }
 
+    // GetUserByID
     fun getUserByID(id: String): LiveData<User>{
         val liveData = MutableLiveData<User>()
         db.collection("user").document(id)
@@ -134,7 +157,9 @@ class UserRepository{
                         User(
                             user.getString("avatar").toString(),
                             user.getString("bio").toString(),
-                            "", user.getString("fb_id").toString(), user.getString("header").toString(),
+                            user.getString("email").toString(),
+                            user.getString("fb_id").toString(),
+                            user.getString("header").toString(),
                             "", "",
                             user.getString("username").toString()
                         )
@@ -156,10 +181,10 @@ class UserRepository{
                         User
                             (document.getString("avatar")!!,
                             document.getString("bio")!!,
-                            "",
+                            document.getString("email")!!,
                             document.getString("fb_id")!!,
-                            "",
-                                document.id,
+                            document.getString("header")!!,
+                            document.id,
                             "",
                             document.getString("username")!!
                         )

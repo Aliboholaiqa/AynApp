@@ -1,6 +1,8 @@
 package com.twq.aynapp.view.profile
 
 import android.app.ProgressDialog
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -33,9 +35,19 @@ class ProfileForOtherUsers : AppCompatActivity() {
         if (userID==null)
             userID=user.fb_id
 
+        binding.imageButtonContact.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data= Uri.parse("mailto:")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(user.email))
+            intent.putExtra(Intent.EXTRA_SUBJECT,"Contacting from Ayn app")
+            intent.putExtra(Intent.EXTRA_TEXT,"Greetings ${user.username}, ")
+            startActivity(intent)
+        }
+
         binding.textViewOtherProfileUsername.text = user.username
         binding.textViewOtherProfileBio.text = user.bio
         Picasso.get().load(user.avatar).into(binding.imageViewOtherProfileAvatar)
+        Picasso.get().load(user.header).into(binding.imageViewOtherHeader)
 
         val progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait...")

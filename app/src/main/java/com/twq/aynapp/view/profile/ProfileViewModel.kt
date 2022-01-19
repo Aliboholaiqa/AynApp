@@ -21,7 +21,7 @@ class ProfileViewModel : ViewModel(){
     }
 
     fun editUserProfile(username:String, bio: String, image: String, header: String):LiveData<User>{
-        return fb.editUserProfile(username, bio, image, header)
+        return user.editUserProfile(username, bio, image, header)
     }
 
     fun editProject(id:String, title:String, description: String, date: String): LiveData<Project>{

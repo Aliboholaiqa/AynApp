@@ -35,7 +35,7 @@ class SavedAdapter (var data:List<Project>): RecyclerView.Adapter<SavedHolder>()
         holder.vtitle.text = data[position].projectTitle
         holder.vusername.text = data[position].createdAt
         Picasso.get().load(data[position].image).into(holder.vimage)
-
+        holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
         holder.vbuttonSave.setOnClickListener {
             //delete
             db.collection("user").document(auth.currentUser?.uid.toString())

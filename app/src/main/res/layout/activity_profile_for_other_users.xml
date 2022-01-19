@@ -8,7 +8,7 @@
     tools:context=".view.profile.ProfileForOtherUsers" >
 
     <ImageView
-        android:id="@+id/imageViewHeader"
+        android:id="@+id/imageViewOtherHeader"
         android:layout_width="0dp"
         android:layout_height="110dp"
         android:scaleType="centerCrop"
@@ -51,7 +51,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHeader">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -63,6 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:text="@string/name"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,13 +79,25 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
-                android:text=""
+                android:text="@string/bio"
                 android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewOtherProfileUsername" />
 
+            <ImageButton
+                android:id="@+id/imageButtonContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#00FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_message" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

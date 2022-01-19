@@ -4,12 +4,35 @@
         android:id="@+id/editProfileItem"
         android:title="@string/edit_profile" />
     <item
-        android:id="@+id/nightMode"
-        android:title="@string/night_mode" />
+        android:id="@+id/theater"
+        android:title="@string/theme">
+        <menu>
+            <item
+                android:id="@+id/nightModeItem"
+                android:title="@string/night_mode" />
+            <item
+                android:id="@+id/lightModeItem"
+                android:title="@string/light_mode" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/changeLanguage"
+        android:title="@string/language" >
+        <menu>
+        <item
+        android:id="@+id/English"
+        android:title="@string/english" />
+    <item
+        android:id="@+id/Arabic"
         android:title="@string/Arabic" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/help"
+        android:title="@string/help"
+        />
 
     <item
         android:id="@+id/signOutItem"

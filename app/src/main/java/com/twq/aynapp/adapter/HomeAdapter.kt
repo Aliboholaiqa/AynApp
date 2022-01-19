@@ -1,5 +1,6 @@
 package com.twq.aynapp.view.home
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
@@ -35,7 +37,9 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
         holder.vusername.text = data[position].createdAt
         Picasso.get().load(data[position].image).into(holder.vimage)
 
+        // Saving project
         holder.vbuttonSave.setOnClickListener {
+
             val project = hashMapOf(
                 "date" to data[position].createdAt,
                 "title" to data[position].projectTitle,
@@ -46,12 +50,7 @@ class HomeAdapter (var data:List<Project>): RecyclerView.Adapter<HomeHolder>(){
             db.collection("user").document(auth.currentUser?.uid.toString())
                 .collection("saved").add(project).addOnCompleteListener {
                     if (it.isSuccessful){
-                        val fm = Firebase.messaging
-                        fm.send(remoteMessage("$SENDER_ID@fcm.googleapis.com") {
-                            setMessageId("messageId.toString()")
-                            addData("my_message", "Hello World")
-                            addData("my_action", "SAY_HELLO")
-                        })
+                        holder.vbuttonSave.setImageResource(R.drawable.ic_bookmarkbold)
                         Log.d("Doc","Saved project successfully")
                     }else{
                         Log.d("Doc","Failed to save project")

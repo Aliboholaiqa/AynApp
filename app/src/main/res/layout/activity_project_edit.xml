@@ -135,7 +135,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/edit_image"
-        android:textStyle="bold"
         app:backgroundTint="#F79B78"
         app:icon="@drawable/ic_image"
         app:layout_constraintEnd_toEndOf="parent"

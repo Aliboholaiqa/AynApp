@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">عين</string>
+
     <string name="email">البريد الإلكتروني</string>
     <string name="login">تسجيل الدخول</string>
     <string name="password">كلمة السر</string>
@@ -34,10 +34,17 @@
     <string name="edit_project">تعديل المشروع</string>
     <string name="description">الوصف</string>
     <string name="edit_image">تعديل الصورة</string>
-    <string name="Arabic">ِEnglish</string>
+    <string name="Arabic">عربي</string>
     <string name="night_mode">الوضع الليلي</string>
-    <string name="add_image">Add Image</string>
-    <string name="created_in">Created in:</string>
+    <string name="add_image">اضافة صورة</string>
+    <string name="created_in">تمت إضافته في:</string>
     <string name="_1_1_1">1/1/1</string>
+    <string name="theme">الثيم</string>
+    <string name="light_mode">الوضع النهاري</string>
+    <string name="language">اللغه</string>
+    <string name="help">المساعده</string>
+    <string name="english">English</string>
+    <string name="pleasewait">الرجاء الانتظار...</string>
+    <string name="waitingforinfotmationtoload">يتم الآن تحميل البيانات</string>
 
 </resources>

@@ -35,8 +35,8 @@ class HomeFragment : Fragment() {
 
 
         val progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Please wait...")
-        progressDialog.setMessage("Waiting for information to load ")
+        progressDialog.setTitle(getString(R.string.pleasewait))
+        progressDialog.setMessage(getString(R.string.waitingforinfotmationtoload))
         progressDialog.show()
         vm.getAllProjects().observe(this,{
             hRecyclerView.adapter = HomeAdapter(it)

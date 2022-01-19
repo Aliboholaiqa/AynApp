@@ -21,25 +21,6 @@ class FirebaseRepository{
     val db = Firebase.firestore
     val dbStorage = Firebase.storage
 
-    fun editUserProfile(username:String, bio: String, image:String, header: String): LiveData<User>{
-        val livedata = MutableLiveData<User>()
-        db.collection("user")
-            .document(auth.currentUser?.uid.toString())
-            .update(
-                mapOf(
-                    "username" to username,
-                    "bio" to bio,
-                    "avatar" to image,
-                    "header" to header
-                )
-            ).addOnSuccessListener {
-                Log.d(ContentValues.TAG, "Profile updated successfully")
-            }.addOnFailureListener {
-                Log.d(ContentValues.TAG, "Update error")
-            }
-        return livedata
-    }
-
     fun uploadImageToFirebase(fileUri: Uri) : LiveData<String> {
         val livedata = MutableLiveData<String>()
         if (fileUri != null) {

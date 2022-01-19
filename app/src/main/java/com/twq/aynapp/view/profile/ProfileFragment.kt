@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -36,6 +37,10 @@ import com.twq.aynapp.view.home.HomeViewModel
 import com.twq.aynapp.view.login.LoginActivity
 import java.io.File
 import java.util.*
+import java.lang.ProcessBuilder.Redirect.to
+
+
+
 
 
 class ProfileFragment : Fragment() {
@@ -53,17 +58,11 @@ class ProfileFragment : Fragment() {
         val avatar = v.findViewById<ImageView>(R.id.imageViewProfileAvatar)
         val header = v.findViewById<ImageView>(R.id.imageViewHeader)
 
-        val progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Please wait...")
-        //progressDialog.setMessage("Waiting for information ")
-        progressDialog.show()
         vm.getUserData().observe(this,{
             username.text = it.username
             bio.text = it.bio
             Picasso.get().load(it.avatar).into(avatar)
             Picasso.get().load(it.header).into(header)
-
-            progressDialog.dismiss()
         })
 
         val buttonProfileEdit = v.findViewById<ImageButton>(R.id.buttonProfileEditInfo)
@@ -75,12 +74,34 @@ class ProfileFragment : Fragment() {
             profileMenu.menuInflater.inflate(R.menu.profile_menu,profileMenu.menu)
             profileMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
                 when(item.itemId) {
+
                     R.id.editProfileItem -> {val intent = Intent (context, ProfileEditInfoActivity::class.java)
                         startActivity(intent) }
+
                     R.id.signOutItem -> { auth.signOut()
                         val intent = Intent (context, LoginActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
+                    }
+
+                    R.id.theater -> {}
+
+                    R.id.nightModeItem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+                    R.id.lightModeItem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+                    R.id.changeLanguage -> {}
+
+                    R.id.English -> setLocale("en")
+
+                    R.id.Arabic -> setLocale("ar")
+
+                    R.id.help -> {
+                        val intent = Intent(Intent.ACTION_SENDTO)
+                        intent.data=Uri.parse("mailto:")
+                        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("support@aynapp.com"))
+                        intent.putExtra(Intent.EXTRA_SUBJECT,"Customer Service")
+                        startActivity(intent)
                     }
                 }
                 true
@@ -102,5 +123,19 @@ class ProfileFragment : Fragment() {
         })
 
         return v
+    }
+
+    fun setLocale(localeName: String?){
+        val locale = Locale(localeName)
+        val res = resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        conf.setLocale(locale)
+        res.updateConfiguration(conf, dm)
+        val i = Intent(context, HomeActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(i)
     }
 }
