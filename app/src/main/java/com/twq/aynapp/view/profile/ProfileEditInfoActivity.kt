@@ -90,7 +90,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
     //image
     private fun selectImageFromGallery(requestCode:Int) {
         ImagePicker.with(this)
-
             .crop()                    //Crop image(Optional), Check Customization for more option
             .compress(1024) //Final image size will be less than 1 MB(Optional)
             .maxResultSize(
@@ -99,7 +98,6 @@ class ProfileEditInfoActivity : AppCompatActivity() {
             )    //Final image resolution will be less than 1080 x 1080(Optional)
             .start(requestCode)
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

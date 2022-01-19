@@ -22,6 +22,10 @@ class ProfileForOtherUsers : AppCompatActivity() {
         setContentView(binding.root)
         val vm : ProfileViewModel by viewModels()
 
+        binding.imageViewBackButton.setOnClickListener {
+            finish()
+        }
+
         //Getting user info
         val user = intent.getSerializableExtra("profile") as User
         var userID =intent.getStringExtra("fb_id")
@@ -29,7 +33,6 @@ class ProfileForOtherUsers : AppCompatActivity() {
         if (userID==null)
             userID=user.fb_id
 
-        println("////////"+user.fb_id)
         binding.textViewOtherProfileUsername.text = user.username
         binding.textViewOtherProfileBio.text = user.bio
         Picasso.get().load(user.avatar).into(binding.imageViewOtherProfileAvatar)

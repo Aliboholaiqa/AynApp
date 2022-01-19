@@ -83,8 +83,6 @@ class UserRepository{
                             if (response.isSuccessful) {
                                 val newUser = response.body()
                                 mLiveData.postValue(newUser!!)
-                                val id = userAPI.id
-                                //val sh = SharedPreferenceHelper.saveToken(,id)
                                 Log.d("Doc Snippet", "New user added")
                             } else {
                                 mLiveData.postValue(User("", "", "", "",

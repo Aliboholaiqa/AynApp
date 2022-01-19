@@ -37,5 +37,7 @@
     <string name="Arabic">ِEnglish</string>
     <string name="night_mode">الوضع الليلي</string>
     <string name="add_image">Add Image</string>
+    <string name="created_in">Created in:</string>
+    <string name="_1_1_1">1/1/1</string>
 
 </resources>

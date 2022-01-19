@@ -40,8 +40,6 @@ class ProjectDetailsActivity : AppCompatActivity() {
             binding.textViewDetailsUsername.text = it.username
             Picasso.get().load(it.avatar).into(binding.imageViewProjectAvatar)
             val user = it
-            println("/////////$user")
-            println("/////////${project.userId}")
             binding.textViewDetailsUsername.setOnClickListener {
                 val intent = Intent(this,ProfileForOtherUsers::class.java)
                 intent.putExtra("profile", user)
