@@ -84,31 +84,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textFieldPassword" />
 
     <Button
-        android:id="@+id/buttonByGoogle"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:text="@string/login_by_google"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
-
-    <Button
         android:id="@+id/buttonRegistration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonByGoogle" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
     <View
         android:id="@+id/divider"

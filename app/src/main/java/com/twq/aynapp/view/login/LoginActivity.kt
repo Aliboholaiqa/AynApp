@@ -52,11 +52,5 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this,RegistrationActivity::class.java)
             startActivity(intent)
         }
-        //Login by google
-        binding.buttonByGoogle.setOnClickListener {
-            val intent = Intent(this,HomeActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 }
