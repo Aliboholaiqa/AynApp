@@ -4,7 +4,7 @@
         android:id="@+id/editProfileItem"
         android:title="@string/edit_profile" />
     <item
-        android:id="@+id/theater"
+        android:id="@+id/theme"
         android:title="@string/theme">
         <menu>
             <item

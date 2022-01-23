@@ -1,46 +1,25 @@
 package com.twq.aynapp.view.profile
 
-import android.app.ProgressDialog
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.twq.aynapp.R
 import com.twq.aynapp.model.*
-import com.twq.aynapp.utility.CheckState
 import com.twq.aynapp.view.home.HomeActivity
-import com.twq.aynapp.view.home.HomeAdapter
-import com.twq.aynapp.view.home.HomeViewModel
 import com.twq.aynapp.view.login.LoginActivity
-import java.io.File
 import java.util.*
-import java.lang.ProcessBuilder.Redirect.to
-
-
-
 
 
 class ProfileFragment : Fragment() {
@@ -84,7 +63,7 @@ class ProfileFragment : Fragment() {
                         activity?.finish()
                     }
 
-                    R.id.theater -> {}
+                    R.id.theme -> {}
 
                     R.id.nightModeItem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
