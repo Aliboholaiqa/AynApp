@@ -11,7 +11,7 @@ A social media platform to showcase and discover creative work.
 - Recycler view and Grid view
 - Leading icons
 
-![This is an image](/../main/MockUp/1.png)
+![This is an image](AynApp/app/src/main/MockUp/)
 
 ## Technologies used
 - Figma for UX designs
