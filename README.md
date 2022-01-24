@@ -29,4 +29,4 @@ The application is for all the photographers and designers who are interested to
 
 ## APK
 /../AynApp/app/release/app-release.apk
-[APK](../app/release/app-release.apk)
+[APK](https://github.com/Aliboholaiqa/AynApp/blob/master/app/release/app-release.apk)
