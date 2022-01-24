@@ -3,7 +3,6 @@ A social media platform to showcase and discover creative work.
 
 The application is for all the photographers and designers who are interested to share their projects, discover creative work or to contact other users.
 
-<img src="https://i.ibb.co/n1k8GcG/ic-launcher-playstore.png" alt="ic-launcher-playstore" border="0">
 
 ## Design
 - Colors
