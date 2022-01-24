@@ -28,4 +28,4 @@ The application is for all the photographers and designers who are interested to
 - Postman
 
 ## APK
-<link rel="stylesheet" href="">
+<link rel="stylesheet" href="/../AynApp/app/release/app-release.apk">
