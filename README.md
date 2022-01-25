@@ -15,6 +15,7 @@ The application is for all the photographers and designers who are interested to
 - Leading icons
 
 <img src="https://i.ibb.co/dgMjk4k/1.png" alt="1" border="0">
+<img src="https://i.ibb.co/Y2DFCs2/2.png" alt="2" border="0">
 
 ## Technologies used
 - Figma for UX designs
@@ -28,4 +29,4 @@ The application is for all the photographers and designers who are interested to
 - Postman
 
 ## APK
-Downnload [APK](https://github.com/Aliboholaiqa/AynApp/blob/master/app/release/app-release.apk)
+Download [APK](https://github.com/Aliboholaiqa/AynApp/blob/master/app/release/app-release.apk)
