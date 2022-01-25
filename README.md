@@ -26,7 +26,7 @@ The application is for all the photographers and designers who are interested to
 - MVVM
 - RestAPI
 - MockAPI
-- Postman
+
 
 ## APK
 Download [APK](https://github.com/Aliboholaiqa/AynApp/blob/master/app/release/app-release.apk)
